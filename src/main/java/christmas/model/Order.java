@@ -3,9 +3,9 @@ package christmas.model;
 import christmas.constant.ExceptionMessage;
 import christmas.constant.PlannerConfig;
 import christmas.model.enums.Menu;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Order {
 
@@ -21,14 +21,11 @@ public class Order {
     }
 
     private Map<Menu, Integer> createMenuCountMap(Map<String, Integer> tempMenuCountMap) {
-        Map<Menu, Integer> convertedMenuCountMap = new HashMap<>();
-
-        tempMenuCountMap.forEach((menuName, menuCount) -> {
-            Menu menu = Menu.getMenuWithName(menuName);
-            convertedMenuCountMap.put(menu, menuCount);
-        });
-
-        return convertedMenuCountMap;
+        return tempMenuCountMap.entrySet().stream()
+                .collect(Collectors.toMap(
+                        entry -> Menu.getMenuWithName(entry.getKey()),
+                        Map.Entry::getValue
+                ));
     }
 
     private void validate(Map<String, Integer> tempMenuCountMap) {
