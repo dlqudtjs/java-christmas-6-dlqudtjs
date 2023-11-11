@@ -2,6 +2,7 @@ package christmas.model;
 
 import christmas.constant.ExceptionMessage;
 import christmas.constant.PlannerConfig;
+import christmas.model.enums.EventDateType;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.YearMonth;
@@ -22,6 +23,10 @@ public class VisitDate {
     public boolean isWeekend() {
         DayOfWeek dayOfWeek = date.getDayOfWeek();
         return dayOfWeek == DayOfWeek.FRIDAY || dayOfWeek == DayOfWeek.SATURDAY;
+    }
+
+    public boolean isSpecialDay() {
+        return EventDateType.SPECIAL_DAY.is(getDay());
     }
 
     private LocalDate settingDate(int day) {
