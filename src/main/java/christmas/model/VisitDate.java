@@ -2,6 +2,7 @@ package christmas.model;
 
 import christmas.constant.ExceptionMessage;
 import christmas.constant.PlannerConfig;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.YearMonth;
 
@@ -16,6 +17,11 @@ public class VisitDate {
 
     public int getDay() {
         return date.getDayOfMonth();
+    }
+
+    public boolean isWeekend() {
+        DayOfWeek dayOfWeek = date.getDayOfWeek();
+        return dayOfWeek == DayOfWeek.FRIDAY || dayOfWeek == DayOfWeek.SATURDAY;
     }
 
     private LocalDate settingDate(int day) {
