@@ -1,5 +1,8 @@
 package christmas.model.enums;
 
+import java.util.Arrays;
+import java.util.List;
+
 public enum EventType {
 
     CHRISTMAS_D_DAY_DISCOUNT("크리스마스 디데이 할인", true),
@@ -17,6 +20,12 @@ public enum EventType {
 
     public String getName() {
         return name;
+    }
+
+    public static List<EventType> getActiveEventTypes() {
+        return Arrays.stream(values())
+                .filter(EventType::isActive)
+                .toList();
     }
 
     public boolean isActive() {

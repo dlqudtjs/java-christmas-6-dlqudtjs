@@ -1,7 +1,9 @@
 package christmas.model.enums;
 
+import java.util.List;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
@@ -15,5 +17,17 @@ public class EventTypeTest {
         // then
         Assertions.assertThat(eventType.isActive()).isEqualTo(expected);
         Assertions.assertThat(eventType.getName()).isEqualTo(name);
+    }
+
+    @DisplayName("활성화된 이벤트 타입 반환 테스트")
+    @Test
+    void getActiveEventTypes() {
+        // given && when
+        List<EventType> eventTypes = EventType.getActiveEventTypes();
+
+        // then
+        for (EventType eventType : eventTypes) {
+            Assertions.assertThat(eventType.isActive()).isTrue();
+        }
     }
 }
