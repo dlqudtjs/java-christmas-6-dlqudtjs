@@ -16,6 +16,10 @@ public class Order {
         this.menuCountMap = createMenuCountMap(tempMenuCountMap);
     }
 
+    public Amount getTotalPrice() {
+        return new Amount(calculateTotalPrice());
+    }
+
     private Map<Menu, Integer> createMenuCountMap(Map<String, Integer> tempMenuCountMap) {
         Map<Menu, Integer> convertedMenuCountMap = new HashMap<>();
 
@@ -68,6 +72,12 @@ public class Order {
     private int getTotalMenuCount(List<Integer> menuCounts) {
         return menuCounts.stream()
                 .mapToInt(Integer::intValue)
+                .sum();
+    }
+
+    private int calculateTotalPrice() {
+        return menuCountMap.entrySet().stream()
+                .mapToInt(entry -> entry.getKey().getPrice() * entry.getValue())
                 .sum();
     }
 }
