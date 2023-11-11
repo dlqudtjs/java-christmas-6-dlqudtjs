@@ -28,6 +28,23 @@ public class OrderTest {
                 .doesNotThrowAnyException();
     }
 
+    @DisplayName("주문한 메뉴의 개수가 0개 이하이면 예외가 발생한다.")
+    @ParameterizedTest
+    @MethodSource("provideOrderMenuCountLessThanOrEqualToZero")
+    void orderMenuCountLessThanOrEqualToZero(Map<String, Integer> menuCountMap) {
+        Assertions.assertThatThrownBy(() -> new Order(menuCountMap))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(ExceptionMessage.INVALID_MENU_COUNT.getMessage());
+    }
+
+    @DisplayName("주문한 메뉴의 개수가 0개 초과이면 예외가 발생하지 않는다.")
+    @ParameterizedTest
+    @MethodSource("provideOrderMenuCountGreaterThanZero")
+    void orderMenuCountGreaterThanZero(Map<String, Integer> menuCountMap) {
+        Assertions.assertThatCode(() -> new Order(menuCountMap))
+                .doesNotThrowAnyException();
+    }
+
     private static Stream<Arguments> provideOrderMenuNotInMenuList() {
         return Stream.of(
                 Arguments.of(Map.of("불고기", 1)),
@@ -41,6 +58,23 @@ public class OrderTest {
                 Arguments.of(Map.of("티본스테이크", 1)),
                 Arguments.of(Map.of("제로콜라", 1, "양송이수프", 1)),
                 Arguments.of(Map.of("레드와인", 1, "크리스마스파스타", 1, "초코케이크", 1))
+        );
+    }
+
+    private static Stream<Arguments> provideOrderMenuCountLessThanOrEqualToZero() {
+        return Stream.of(
+                Arguments.of(Map.of("티본스테이크", 0)),
+                Arguments.of(Map.of("제로콜라", 1, "양송이수프", 0)),
+                Arguments.of(Map.of("레드와인", 1, "크리스마스파스타", 1, "초코케이크", 0)),
+                Arguments.of(Map.of("레드와인", 1, "크리스마스파스타", 1, "초코케이크", -1))
+        );
+    }
+
+    private static Stream<Arguments> provideOrderMenuCountGreaterThanZero() {
+        return Stream.of(
+                Arguments.of(Map.of("티본스테이크", 1)),
+                Arguments.of(Map.of("제로콜라", 10, "양송이수프", 5)),
+                Arguments.of(Map.of("레드와인", 12, "크리스마스파스타", 3, "초코케이크", 1))
         );
     }
 }
