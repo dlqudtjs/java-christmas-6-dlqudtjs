@@ -1,5 +1,7 @@
 package christmas.model.enums;
 
+import java.util.Arrays;
+
 public enum Menu {
 
     // <에피타이저>
@@ -20,7 +22,10 @@ public enum Menu {
     // <음료>
     ZERO_COKE("제로콜라", 3_000, MenuType.DRINK),
     RED_WINE("레드와인", 60_000, MenuType.DRINK),
-    CHAMPAGNE("샴페인", 25_000, MenuType.DRINK);
+    CHAMPAGNE("샴페인", 25_000, MenuType.DRINK),
+
+    // 없을 시
+    NONE("없음", 0, null);
 
     private final String name;
     private final int price;
@@ -30,6 +35,13 @@ public enum Menu {
         this.name = name;
         this.price = price;
         this.menuType = menuType;
+    }
+
+    public static Menu getMenuWithName(String name) {
+        return Arrays.stream(values())
+                .filter(menu -> menu.getName().equals(name))
+                .findFirst()
+                .orElse(NONE);
     }
 
     public String getName() {
