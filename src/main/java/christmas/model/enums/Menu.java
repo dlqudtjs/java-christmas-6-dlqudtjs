@@ -39,4 +39,8 @@ public enum Menu {
     public int getPrice() {
         return price;
     }
+
+    public boolean is(MenuType menuType) {
+        return this.menuType == menuType;
+    }
 }
