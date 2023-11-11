@@ -11,6 +11,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 public class OrderTest {
 
+    // 유효성 테스트
     @DisplayName("메뉴판에 없는 메뉴를 주문하면 예외가 발생한다.")
     @ParameterizedTest
     @MethodSource("provideOrderMenuNotInMenuList")

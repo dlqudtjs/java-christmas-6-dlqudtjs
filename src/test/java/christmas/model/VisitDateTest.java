@@ -8,6 +8,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 public class VisitDateTest {
 
+    // 유효성 테스트
     @DisplayName("방문일이 존재하지 않으면 예외가 발생한다.")
     @ParameterizedTest
     @ValueSource(ints = {-1, 0, 32, 100})
@@ -28,6 +29,7 @@ public class VisitDateTest {
                 .doesNotThrowAnyException();
     }
 
+    // 기능 목록 테스트
     @DisplayName("Day 반환 테스트")
     @ParameterizedTest
     @ValueSource(ints = {1, 2, 3, 4, 5, 6, 7, 8, 9,
@@ -37,5 +39,22 @@ public class VisitDateTest {
     void getDay(int visitDate) {
         VisitDate date = new VisitDate(visitDate);
         Assertions.assertThat(date.getDay()).isEqualTo(visitDate);
+    }
+
+    @DisplayName("주말 여부 반환 테스트 [ture]")
+    @ParameterizedTest
+    @ValueSource(ints = {1, 2, 8, 9, 15, 16, 22, 23, 29, 30})
+    void isWeekend(int visitDate) {
+        VisitDate date = new VisitDate(visitDate);
+        Assertions.assertThat(date.isWeekend()).isTrue();
+    }
+
+    @DisplayName("주말 여부 반환 테스트 [false]")
+    @ParameterizedTest
+    @ValueSource(ints = {3, 4, 5, 6, 7, 10, 11, 12, 13, 14,
+            17, 18, 19, 20, 21, 24, 25, 26, 27, 28, 31})
+    void isNotWeekend(int visitDate) {
+        VisitDate date = new VisitDate(visitDate);
+        Assertions.assertThat(date.isWeekend()).isFalse();
     }
 }
