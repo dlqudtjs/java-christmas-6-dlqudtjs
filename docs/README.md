@@ -164,8 +164,7 @@ one
 ### 📅[enum] EventDateType
 
 ```text
-- [✅] 특별 날짜 나열
-- [✅] 특별 날짜 포함 여부 반환
+- [✅] 특별 날짜 포함 여부 반환 - 테스트 [🟢]
 ```
 
 ### 🎊[enum] EventType
