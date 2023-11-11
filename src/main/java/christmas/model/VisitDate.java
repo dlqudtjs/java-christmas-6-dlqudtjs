@@ -14,6 +14,10 @@ public class VisitDate {
         this.date = settingDate(day);
     }
 
+    public int getDay() {
+        return date.getDayOfMonth();
+    }
+
     private LocalDate settingDate(int day) {
         return LocalDate.of(
                 PlannerConfig.PLANNER_YEAR.getValue(),
