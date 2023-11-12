@@ -2,7 +2,7 @@ package christmas.model;
 
 public class Amount {
 
-    private final int value;
+    private int value;
 
     public Amount(int value) {
         this.value = value;
@@ -12,11 +12,15 @@ public class Amount {
         return value;
     }
 
-    public Amount discount(Amount amount) {
-        return new Amount(value - amount.getValue());
+    public int discount(Amount amount) {
+        return value - amount.getValue();
     }
 
     public boolean isGreaterThan(Amount amount) {
         return value > amount.getValue();
+    }
+
+    public void add(Amount amount) {
+        value += amount.getValue();
     }
 }
