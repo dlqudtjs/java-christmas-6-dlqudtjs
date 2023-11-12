@@ -14,12 +14,12 @@ public class Giveaway {
         this.menus = getMenu(giveawayType, amount);
     }
 
-    public boolean isExist() {
-        return menus != null;
-    }
-
     public Map<Menu, Integer> getMenus() {
         return Collections.unmodifiableMap(menus);
+    }
+
+    public boolean isExist() {
+        return menus != null;
     }
 
     private Map<Menu, Integer> getMenu(GiveawayType giveawayType, Amount amount) {
@@ -39,6 +39,6 @@ public class Giveaway {
     }
 
     private boolean isAvailable(GiveawayType giveawayType, Amount amount) {
-        return amount.isGreaterThan(new Amount(giveawayType.getPrice()));
+        return giveawayType.isAvailable(amount.getValue());
     }
 }

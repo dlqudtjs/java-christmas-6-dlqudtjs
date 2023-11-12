@@ -21,8 +21,8 @@ public enum GiveawayType {
         return menus;
     }
 
-    public int getPrice() {
-        return price;
+    public boolean isAvailable(int price) {
+        return price >= this.price;
     }
 
     public int getQuantity(int price) {
