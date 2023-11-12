@@ -18,6 +18,12 @@ public class Giveaway {
         return Collections.unmodifiableMap(menus);
     }
 
+    public int getTotalPrice() {
+        return menus.entrySet().stream()
+                .mapToInt(entry -> entry.getKey().getPrice() * entry.getValue())
+                .sum();
+    }
+
     public boolean isExist() {
         return menus != null;
     }
