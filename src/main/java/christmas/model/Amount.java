@@ -15,4 +15,8 @@ public class Amount {
     public Amount discount(Amount amount) {
         return new Amount(value - amount.getValue());
     }
+
+    public boolean isGreaterThan(Amount amount) {
+        return value > amount.getValue();
+    }
 }
