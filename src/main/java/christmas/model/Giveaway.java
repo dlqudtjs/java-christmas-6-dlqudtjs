@@ -13,6 +13,10 @@ public class Giveaway {
         this.menus = getMenu(giveawayType, amount);
     }
 
+    public boolean isExist() {
+        return menus != null;
+    }
+
     private Map<Menu, Integer> getMenu(GiveawayType giveawayType, Amount amount) {
         if (isAvailable(giveawayType, amount)) {
             return generateMenu(giveawayType, amount);
