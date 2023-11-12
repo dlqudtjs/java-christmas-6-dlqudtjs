@@ -26,6 +26,10 @@ public enum GiveawayType {
     }
 
     public int getQuantity(int price) {
+        if (price < this.price) {
+            return 0;
+        }
+
         if (isPerUint) {
             return price / this.price;
         }
