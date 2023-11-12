@@ -3,6 +3,7 @@ package christmas.model;
 import christmas.constant.ExceptionMessage;
 import christmas.constant.PlannerConfig;
 import christmas.model.enums.Menu;
+import christmas.model.enums.MenuType;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -18,6 +19,13 @@ public class Order {
 
     public Amount getTotalPrice() {
         return new Amount(calculateTotalPrice());
+    }
+
+    public int getMenuTypeCount(MenuType menuType) {
+        return menuCountMap.entrySet().stream()
+                .filter(entry -> entry.getKey().is(menuType))
+                .mapToInt(Map.Entry::getValue)
+                .sum();
     }
 
     private Map<Menu, Integer> createMenuCountMap(Map<String, Integer> tempMenuCountMap) {
