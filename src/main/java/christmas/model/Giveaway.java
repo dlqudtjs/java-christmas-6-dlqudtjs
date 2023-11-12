@@ -2,6 +2,7 @@ package christmas.model;
 
 import christmas.model.enums.GiveawayType;
 import christmas.model.enums.Menu;
+import java.util.Collections;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -15,6 +16,10 @@ public class Giveaway {
 
     public boolean isExist() {
         return menus != null;
+    }
+
+    public Map<Menu, Integer> getMenus() {
+        return Collections.unmodifiableMap(menus);
     }
 
     private Map<Menu, Integer> getMenu(GiveawayType giveawayType, Amount amount) {
