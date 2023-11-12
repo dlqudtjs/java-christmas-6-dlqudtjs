@@ -3,6 +3,7 @@ package christmas.model;
 import christmas.model.enums.GiveawayType;
 import christmas.model.enums.Menu;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -25,7 +26,7 @@ public class Giveaway {
     }
 
     public boolean isExist() {
-        return menus != null;
+        return !menus.containsKey(Menu.NONE);
     }
 
     private Map<Menu, Integer> getMenu(GiveawayType giveawayType, Amount amount) {
@@ -33,7 +34,9 @@ public class Giveaway {
             return generateMenu(giveawayType, amount);
         }
 
-        return null;
+        return new HashMap<>() {{
+            put(Menu.NONE, 0);
+        }};
     }
 
     private Map<Menu, Integer> generateMenu(GiveawayType giveawayType, Amount amount) {
