@@ -10,7 +10,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 public class GiveawayTest {
 
-    @DisplayName("증정품 여부 반환 테스트[false]")
+    @DisplayName("[DECEMBER 이벤트]증정품 여부 반환 테스트[false]")
     @Test
     void isExistFalse() {
         // given
@@ -24,7 +24,7 @@ public class GiveawayTest {
         Assertions.assertThat(giveaway.isExist()).isFalse();
     }
 
-    @DisplayName("증정품 여부 반환 테스트[true]")
+    @DisplayName("[DECEMBER 이벤트]증정품 여부 반환 테스트[true]")
     @Test
     void isExistTrue() {
         // given
@@ -38,7 +38,7 @@ public class GiveawayTest {
         Assertions.assertThat(giveaway.isExist()).isTrue();
     }
 
-    @DisplayName("기준 금액을 넘었을 때, 샴페인 증정 테스트")
+    @DisplayName("[DECEMBER 이벤트]기준 금액을 넘었을 때, 샴페인 증정 테스트")
     @ParameterizedTest
     @ValueSource(ints = {120_000, 130_000, 200_000, 1_000_000})
     void getChampagne(int price) {
@@ -56,7 +56,7 @@ public class GiveawayTest {
         Assertions.assertThat(giveaway.getMenus().get(Menu.CHAMPAGNE)).isEqualTo(1);
     }
 
-    @DisplayName("기준 금액을 넘지 못했을 때, 샴페인 증정 테스트")
+    @DisplayName("[DECEMBER 이벤트]기준 금액을 넘지 못했을 때, 샴페인 증정 테스트")
     @ParameterizedTest
     @ValueSource(ints = {0, 5_000, 100_000, 110_000, 119_000})
     void getChampagneZero(int price) {
@@ -69,5 +69,35 @@ public class GiveawayTest {
 
         // then
         Assertions.assertThat(giveaway.getMenus()).containsKey(Menu.NONE);
+    }
+
+    @DisplayName("[DECEMBER 이벤트]증정품 총 금액 반환 테스트[샴페인 1개 가격]")
+    @ParameterizedTest
+    @ValueSource(ints = {120_000, 130_000, 200_000, 1_000_000})
+    void getTotalPrice(int price) {
+        // given
+        GiveawayType giveawayType = GiveawayType.DECEMBER_GIVEAWAY;
+        Amount amount = new Amount(price);
+
+        // when
+        Giveaway giveaway = new Giveaway(giveawayType, amount);
+
+        // then
+        Assertions.assertThat(giveaway.getTotalPrice()).isEqualTo(Menu.CHAMPAGNE.getPrice());
+    }
+
+    @DisplayName("증정품 총 금액 반환 테스트[0원]")
+    @ParameterizedTest
+    @ValueSource(ints = {0, 5_000, 100_000, 110_000, 119_000})
+    void getTotalPriceZero(int price) {
+        // given
+        GiveawayType giveawayType = GiveawayType.DECEMBER_GIVEAWAY;
+        Amount amount = new Amount(price);
+
+        // when
+        Giveaway giveaway = new Giveaway(giveawayType, amount);
+
+        // then
+        Assertions.assertThat(giveaway.getTotalPrice()).isEqualTo(0);
     }
 }
