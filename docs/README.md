@@ -167,7 +167,7 @@ WeekendDiscount class
 
 ```text
 WeekdayDiscount class
-- [✅] 평일 할인
+- [✅] 평일 할인 - 테스트 [🟢]
 
 - 유효성 검사
 
