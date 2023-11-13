@@ -1,103 +1,52 @@
 package christmas.model;
 
-import christmas.model.enums.GiveawayType;
 import christmas.model.enums.Menu;
+import christmas.model.event.Giveaway;
+import java.util.Map;
+import java.util.stream.Stream;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
+import org.junit.jupiter.params.provider.MethodSource;
 
 public class GiveawayTest {
 
-    @DisplayName("[DECEMBER 이벤트]증정품 여부 반환 테스트[false]")
-    @Test
-    void isExistFalse() {
-        // given
-        GiveawayType giveawayType = GiveawayType.DECEMBER_GIVEAWAY;
-        Amount amount = new Amount(100_000);
-
-        // when
-        Giveaway giveaway = new Giveaway(giveawayType, amount);
-
-        // then
-        Assertions.assertThat(giveaway.isExist()).isFalse();
-    }
-
-    @DisplayName("[DECEMBER 이벤트]증정품 여부 반환 테스트[true]")
-    @Test
-    void isExistTrue() {
-        // given
-        GiveawayType giveawayType = GiveawayType.DECEMBER_GIVEAWAY;
-        Amount amount = new Amount(120_000);
-
-        // when
-        Giveaway giveaway = new Giveaway(giveawayType, amount);
-
-        // then
-        Assertions.assertThat(giveaway.isExist()).isTrue();
-    }
-
-    @DisplayName("[DECEMBER 이벤트]기준 금액을 넘었을 때, 샴페인 증정 테스트")
+    @DisplayName("증정품 총 가격 반환 테스트[샴페인 1개]")
     @ParameterizedTest
-    @ValueSource(ints = {120_000, 130_000, 200_000, 1_000_000})
-    void getChampagne(int price) {
-        // given
-        GiveawayType giveawayType = GiveawayType.DECEMBER_GIVEAWAY;
-        Amount amount = new Amount(price);
-
-        // when
-        Giveaway giveaway = new Giveaway(giveawayType, amount);
-        int size = giveaway.getMenus().size();
+    @MethodSource("provideOrderTotalPriceGreaterThan120_000")
+    void getTotalPrice(BookingInfo bookingInfo) {
+        // given & when
+        Giveaway giveaway = new Giveaway(bookingInfo);
+        int totalPrice = giveaway.getDiscount().getValue();
 
         // then
-        Assertions.assertThat(size).isEqualTo(1);
-        Assertions.assertThat(giveaway.getMenus()).containsKey(Menu.CHAMPAGNE);
-        Assertions.assertThat(giveaway.getMenus().get(Menu.CHAMPAGNE)).isEqualTo(1);
+        Assertions.assertThat(totalPrice).isEqualTo(Menu.CHAMPAGNE.getPrice());
     }
 
-    @DisplayName("[DECEMBER 이벤트]기준 금액을 넘지 못했을 때, 샴페인 증정 테스트")
+    @DisplayName("증정품 총 가격 반환 테스트[없음]")
     @ParameterizedTest
-    @ValueSource(ints = {0, 5_000, 100_000, 110_000, 119_000})
-    void getChampagneZero(int price) {
-        // given
-        GiveawayType giveawayType = GiveawayType.DECEMBER_GIVEAWAY;
-        Amount amount = new Amount(price);
-
-        // when
-        Giveaway giveaway = new Giveaway(giveawayType, amount);
+    @MethodSource("provideOrderTotalPriceLessThan120_000")
+    void getTotalPriceWhenNoGiveaway(BookingInfo bookingInfo) {
+        // given & when
+        Giveaway giveaway = new Giveaway(bookingInfo);
+        int totalPrice = giveaway.getDiscount().getValue();
 
         // then
-        Assertions.assertThat(giveaway.getMenus()).containsKey(Menu.NONE);
+        Assertions.assertThat(totalPrice).isEqualTo(0);
     }
 
-    @DisplayName("[DECEMBER 이벤트]증정품 총 금액 반환 테스트[샴페인 1개 가격]")
-    @ParameterizedTest
-    @ValueSource(ints = {120_000, 130_000, 200_000, 1_000_000})
-    void getTotalPrice(int price) {
-        // given
-        GiveawayType giveawayType = GiveawayType.DECEMBER_GIVEAWAY;
-        Amount amount = new Amount(price);
-
-        // when
-        Giveaway giveaway = new Giveaway(giveawayType, amount);
-
-        // then
-        Assertions.assertThat(giveaway.getTotalPrice()).isEqualTo(Menu.CHAMPAGNE.getPrice());
+    private static Stream<BookingInfo> provideOrderTotalPriceGreaterThan120_000() {
+        return Stream.of(
+                new BookingInfo(new Order(Map.of("티본스테이크", 10)), new VisitDate(25)),
+                new BookingInfo(new Order(Map.of("초코케이크", 8)), new VisitDate(26))
+        );
     }
 
-    @DisplayName("증정품 총 금액 반환 테스트[0원]")
-    @ParameterizedTest
-    @ValueSource(ints = {0, 5_000, 100_000, 110_000, 119_000})
-    void getTotalPriceZero(int price) {
-        // given
-        GiveawayType giveawayType = GiveawayType.DECEMBER_GIVEAWAY;
-        Amount amount = new Amount(price);
-
-        // when
-        Giveaway giveaway = new Giveaway(giveawayType, amount);
-
-        // then
-        Assertions.assertThat(giveaway.getTotalPrice()).isEqualTo(0);
+    private static Stream<BookingInfo> provideOrderTotalPriceLessThan120_000() {
+        return Stream.of(
+                new BookingInfo(new Order(Map.of("티본스테이크", 1)), new VisitDate(25)),
+                new BookingInfo(new Order(Map.of("바비큐립", 1, "티본스테이크", 1)), new VisitDate(26))
+        );
     }
 }
+
