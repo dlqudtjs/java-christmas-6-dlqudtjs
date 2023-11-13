@@ -151,6 +151,10 @@ Benefit class
 ```text
 ChristmasDDayDiscount class
 - [✅] 크리스마스 디데이 할인
+
+- 유효성 검사
+
+- [✅] 이벤트 기간 적용 테스트(1 ~ 25일) - 테스트 [🟢]
 ```
 
 ```text
