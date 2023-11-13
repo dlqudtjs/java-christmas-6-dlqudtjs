@@ -1,6 +1,8 @@
 package christmas.util;
 
+import christmas.constant.CommonSymbol;
 import christmas.constant.ExceptionMessage;
+import java.util.List;
 
 public class Parser {
 
@@ -14,5 +16,9 @@ public class Parser {
             ExceptionMessage message = ExceptionMessage.INVALID_VISIT_DATE;
             throw new IllegalArgumentException(message.getMessage());
         }
+    }
+
+    public static List<String> parseToList(String value, CommonSymbol symbol) {
+        return List.of(value.split(symbol.getSymbol()));
     }
 }

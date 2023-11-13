@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 
 public class InputView {
 
+    // ex) 티본스테이크-1,아이스크림-2
     private static final String MENU_COUNT_FORMAT = "^[a-zA-Z가-힣]+-\\d+(?:,\\s?[a-zA-Z가-힣]+-\\d+)*$";
 
     private InputView() {
