@@ -43,6 +43,17 @@ public class Order {
         validateMenuName(menuNames);
         validateMenuCount(menuCounts);
         validateTotalMenuCount(menuCounts);
+        validateMenuOnlyDrink(menuNames);
+    }
+
+    private void validateMenuOnlyDrink(List<String> menuNames) {
+        menuNames.stream()
+                .filter(menuName -> !Menu.getMenuWithName(menuName).is(MenuType.DRINK))
+                .findFirst()
+                .orElseThrow(() -> {
+                    ExceptionMessage message = ExceptionMessage.INVALID_MENU_ONLY_DRINK;
+                    return new IllegalArgumentException(message.getMessage());
+                });
     }
 
     private void validateTotalMenuCount(List<Integer> menuCounts) {
