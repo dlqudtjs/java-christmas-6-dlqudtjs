@@ -1,5 +1,6 @@
 package christmas.model;
 
+import christmas.model.enums.BadgeType;
 import christmas.model.enums.EventType;
 import christmas.model.event.Benefit;
 import java.util.Map;
@@ -166,6 +167,54 @@ public class BenefitTest {
         Assertions.assertThat(benefitPrice).isEqualTo(expectedBenefitPrice);
     }
 
+    @DisplayName("[혜택 금액 : 3023] 뱃지 반환 테스트 [NONE]")
+    @ParameterizedTest
+    @MethodSource("provideNONEBadge")
+    void getBadgeTest1(BookingInfo bookingInfo) {
+        // given & when
+        Benefit benefit = new Benefit(bookingInfo);
+        BadgeType badge = benefit.getBadge();
+
+        // then
+        Assertions.assertThat(badge).isEqualTo(BadgeType.NONE);
+    }
+
+    @DisplayName("[혜택 금액 : 5046] 뱃지 반환 테스트[별]")
+    @ParameterizedTest
+    @MethodSource("provideStarBadge")
+    void getBadgeTest2(BookingInfo bookingInfo) {
+        // given & when
+        Benefit benefit = new Benefit(bookingInfo);
+        BadgeType badge = benefit.getBadge();
+
+        // then
+        Assertions.assertThat(badge).isEqualTo(BadgeType.STAR);
+    }
+
+    @DisplayName("[혜택 금액 : 11415] 뱃지 반환 테스트[트리]")
+    @ParameterizedTest
+    @MethodSource("provideTreeBadge")
+    void getBadgeTest3(BookingInfo bookingInfo) {
+        // given & when
+        Benefit benefit = new Benefit(bookingInfo);
+        BadgeType badge = benefit.getBadge();
+
+        // then
+        Assertions.assertThat(badge).isEqualTo(BadgeType.TREE);
+    }
+
+    @DisplayName("[혜택 금액 : 2만원 이상] 뱃지 반환 테스트[산타]")
+    @ParameterizedTest
+    @MethodSource("provideSantaBadge")
+    void getBadgeTest4(BookingInfo bookingInfo) {
+        // given & when
+        Benefit benefit = new Benefit(bookingInfo);
+        BadgeType badge = benefit.getBadge();
+
+        // then
+        Assertions.assertThat(badge).isEqualTo(BadgeType.SANTA);
+    }
+
     private static Stream<BookingInfo> provideBenefitWhenAmountIsLessThanMinimum() {
         return Stream.of(
                 new BookingInfo(new Order(
@@ -274,6 +323,38 @@ public class BenefitTest {
         return Stream.of(
                 new BookingInfo(new Order(
                         Map.of("티본스테이크", 3, "레드와인", 1, "초코케이크", 1)), new VisitDate(30))
+        );
+    }
+
+    // [뱃지 반환 테스트 [혜택 금액 : 3023]]
+    private static Stream<BookingInfo> provideNONEBadge() {
+        return Stream.of(
+                new BookingInfo(new Order(
+                        Map.of("티본스테이크", 1)), new VisitDate(1))
+        );
+    }
+
+    // [뱃지 반환 테스트[혜택 금액 : 5046]]
+    private static Stream<BookingInfo> provideStarBadge() {
+        return Stream.of(
+                new BookingInfo(new Order(
+                        Map.of("티본스테이크", 2)), new VisitDate(1))
+        );
+    }
+
+    // [뱃지 반환 테스트[혜택 금액 : 11415]]
+    private static Stream<BookingInfo> provideTreeBadge() {
+        return Stream.of(
+                new BookingInfo(new Order(
+                        Map.of("아이스크림", 5)), new VisitDate(4))
+        );
+    }
+
+    // [뱃지 반환 테스트[혜택 금액 : 2만원 이상]]
+    private static Stream<BookingInfo> provideSantaBadge() {
+        return Stream.of(
+                new BookingInfo(new Order(
+                        Map.of("티본스테이크", 5)), new VisitDate(4))
         );
     }
 }
