@@ -159,6 +159,10 @@ ChristmasDDayDiscount class
 ```text
 WeekendDiscount class
 - [✅] 주말 할인
+
+- 유효성 검사
+
+- [✅] 이벤트 기간 적용 - 테스트 [🟢]
 ```
 
 ```text
@@ -168,7 +172,7 @@ WeekdayDiscount class
 
 ```text
 SpecialDayDiscount class
-- [✅] 특별 날짜 할인
+- [✅] 특별 날짜 할인 - 테스트 [🟢]
 
 - 유효성 검사
 
