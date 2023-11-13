@@ -3,7 +3,9 @@ package christmas.model.enums;
 import christmas.model.event.ChristmasDDayDiscount;
 import christmas.model.event.Giveaway;
 import christmas.model.event.PlannerEventFactory;
-import christmas.model.event.WeekDiscount;
+import christmas.model.event.SpecialDiscount;
+import christmas.model.event.WeekdayDiscount;
+import christmas.model.event.WeekendDiscount;
 import java.util.Arrays;
 import java.util.List;
 
@@ -18,13 +20,19 @@ public enum EventType {
     WEEKDAY_DISCOUNT("평일 할인", true) {
         @Override
         public PlannerEventFactory getEventFactory() {
-            return WeekDiscount::new;
+            return WeekdayDiscount::new;
         }
     },
     WEEKEND_DISCOUNT("주말 할인", true) {
         @Override
         public PlannerEventFactory getEventFactory() {
-            return WeekDiscount::new;
+            return WeekendDiscount::new;
+        }
+    },
+    SPECIAL_DISCOUNT("특별 할인", true) {
+        @Override
+        public PlannerEventFactory getEventFactory() {
+            return SpecialDiscount::new;
         }
     },
     GIFT_EVENT("증정 이벤트", true) {
