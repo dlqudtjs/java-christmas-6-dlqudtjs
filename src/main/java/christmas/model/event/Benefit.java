@@ -5,6 +5,7 @@ import static christmas.model.event.EventConfig.EVENT_ENTRY_MINIMUM;
 import christmas.model.Amount;
 import christmas.model.BookingInfo;
 import christmas.model.Order;
+import christmas.model.enums.BadgeType;
 import christmas.model.enums.EventType;
 import java.util.Collections;
 import java.util.List;
@@ -29,6 +30,10 @@ public class Benefit {
                 .sum();
 
         return new Amount(totalBenefitPrice);
+    }
+
+    public BadgeType getBadge() {
+        return BadgeType.getBadgeWithPrice(getTotalBenefitAmount().getValue());
     }
 
     private Amount getEventDiscountPrice(EventType eventType, BookingInfo bookingInfo) {
