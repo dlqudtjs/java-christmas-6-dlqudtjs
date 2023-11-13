@@ -1,5 +1,6 @@
 package christmas.model;
 
+import christmas.model.enums.EventType;
 import christmas.model.event.Benefit;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -34,6 +35,109 @@ public class BenefitTest {
         Assertions.assertThat(benefitPrice).isGreaterThan(0);
     }
 
+    @DisplayName("할인 리스트 반환 테스트[평일, 증정 이벤트, 크리스마스 디데이 이벤트 적용]")
+    @ParameterizedTest
+    @MethodSource("provideBookingInfo1")
+    void getEventDetailTest1(BookingInfo bookingInfo) {
+        // given & when
+        Benefit benefit = new Benefit(bookingInfo);
+        Map<EventType, Amount> eventDetails = benefit.getEventDetails();
+
+        // then
+        Assertions.assertThat(eventDetails).containsOnlyKeys(
+                EventType.WEEKDAY_DISCOUNT,
+                EventType.GIFT_EVENT,
+                EventType.CHRISTMAS_D_DAY_DISCOUNT
+        );
+    }
+
+    @DisplayName("할인 리스트 반환 테스트[평일, 증정 이벤트, 크리스마스 디데이 이벤트, 특별 할인 적용]")
+    @ParameterizedTest
+    @MethodSource("provideBookingInfo2")
+    void getEventDetailTest2(BookingInfo bookingInfo) {
+        // given & when
+        Benefit benefit = new Benefit(bookingInfo);
+        Map<EventType, Amount> eventDetails = benefit.getEventDetails();
+
+        // then
+        Assertions.assertThat(eventDetails).containsOnlyKeys(
+                EventType.WEEKDAY_DISCOUNT,
+                EventType.GIFT_EVENT,
+                EventType.CHRISTMAS_D_DAY_DISCOUNT,
+                EventType.SPECIAL_DISCOUNT
+        );
+    }
+
+    @DisplayName("할인 리스트 반환 테스트[주말 할인 적용]")
+    @ParameterizedTest
+    @MethodSource("provideBookingInfo3")
+    void getEventDetailTest3(BookingInfo bookingInfo) {
+        // given & when
+        Benefit benefit = new Benefit(bookingInfo);
+        Map<EventType, Amount> eventDetails = benefit.getEventDetails();
+
+        // then
+        Assertions.assertThat(eventDetails).containsOnlyKeys(
+                EventType.WEEKEND_DISCOUNT
+        );
+    }
+
+    @DisplayName("할인 리스트 반환 테스트[평일 할인 적용]")
+    @ParameterizedTest
+    @MethodSource("provideBookingInfo4")
+    void getEventDetailTest4(BookingInfo bookingInfo) {
+        // given & when
+        Benefit benefit = new Benefit(bookingInfo);
+        Map<EventType, Amount> eventDetails = benefit.getEventDetails();
+
+        // then
+        Assertions.assertThat(eventDetails).containsOnlyKeys(
+                EventType.WEEKDAY_DISCOUNT
+        );
+    }
+
+    @DisplayName("할인 리스트 반환 테스트[증정 이벤트 적용]")
+    @ParameterizedTest
+    @MethodSource("provideBookingInfo5")
+    void getEventDetailTest5(BookingInfo bookingInfo) {
+        // given & when
+        Benefit benefit = new Benefit(bookingInfo);
+        Map<EventType, Amount> eventDetails = benefit.getEventDetails();
+
+        // then
+        Assertions.assertThat(eventDetails).containsOnlyKeys(
+                EventType.GIFT_EVENT
+        );
+    }
+
+    @DisplayName("할인 리스트 반환 테스트[크리스마스 디데이 할인 적용]")
+    @ParameterizedTest
+    @MethodSource("provideBookingInfo6")
+    void getEventDetailTest6(BookingInfo bookingInfo) {
+        // given & when
+        Benefit benefit = new Benefit(bookingInfo);
+        Map<EventType, Amount> eventDetails = benefit.getEventDetails();
+
+        // then
+        Assertions.assertThat(eventDetails).containsOnlyKeys(
+                EventType.CHRISTMAS_D_DAY_DISCOUNT
+        );
+    }
+
+    @DisplayName("할인 리스트 반환 테스트[특별 할인 적용]")
+    @ParameterizedTest
+    @MethodSource("provideBookingInfo7")
+    void getEventDetailTest7(BookingInfo bookingInfo) {
+        // given & when
+        Benefit benefit = new Benefit(bookingInfo);
+        Map<EventType, Amount> eventDetails = benefit.getEventDetails();
+
+        // then
+        Assertions.assertThat(eventDetails).containsOnlyKeys(
+                EventType.SPECIAL_DISCOUNT
+        );
+    }
+
     private static Stream<BookingInfo> provideBenefitWhenAmountIsLessThanMinimum() {
         return Stream.of(
                 new BookingInfo(new Order(
@@ -51,10 +155,81 @@ public class BenefitTest {
                 new BookingInfo(new Order(
                         Map.of("양송이수프", 1, "티본스테이크", 1)), new VisitDate(1)),
                 new BookingInfo(new Order(
-                        Map.of("아이스크림", 1, "티본스테이크", 1)), new VisitDate(1)),
+                        Map.of("아이스크림", 2)), new VisitDate(1)),
                 new BookingInfo(new Order(
                         Map.of("타파스", 1, "제로콜라", 1, "티본스테이크", 1)), new VisitDate(1))
 
+        );
+    }
+
+    // [평일, 증정 이벤트, 크리스마스 디데이 이벤트 적용 BookingInfo]
+    private static Stream<BookingInfo> provideBookingInfo1() {
+        return Stream.of(
+                new BookingInfo(new Order(
+                        Map.of("초코케이크", 1, "티본스테이크", 3)), new VisitDate(4)),
+                new BookingInfo(new Order(
+                        Map.of("아이스크림", 1, "티본스테이크", 3)), new VisitDate(14)),
+                new BookingInfo(new Order(
+                        Map.of("아이스크림", 2, "티본스테이크", 2)), new VisitDate(21))
+
+        );
+    }
+
+    // [평일, 증정 이벤트, 크리스마스 디데이 이벤트, 특별 할인 적용 BookingInfo]
+    private static Stream<BookingInfo> provideBookingInfo2() {
+        return Stream.of(
+                new BookingInfo(new Order(
+                        Map.of("초코케이크", 1, "티본스테이크", 3)), new VisitDate(25))
+
+        );
+    }
+
+    // [주말 할인 적용 BookingInfo]
+    private static Stream<BookingInfo> provideBookingInfo3() {
+        return Stream.of(
+                new BookingInfo(new Order(
+                        Map.of("티본스테이크", 1)), new VisitDate(29)),
+                new BookingInfo(new Order(
+                        Map.of("티본스테이크", 1)), new VisitDate(30))
+
+        );
+    }
+
+    // [평일 할인 적용 BookingInfo]
+    private static Stream<BookingInfo> provideBookingInfo4() {
+        return Stream.of(
+                new BookingInfo(new Order(
+                        Map.of("초코케이크", 1)), new VisitDate(26)),
+                new BookingInfo(new Order(
+                        Map.of("아이스크림", 3)), new VisitDate(28))
+        );
+    }
+
+    // [증정 이벤트 적용 BookingInfo]
+    private static Stream<BookingInfo> provideBookingInfo5() {
+        return Stream.of(
+                new BookingInfo(new Order(
+                        Map.of("티본스테이크", 4)), new VisitDate(26)),
+                new BookingInfo(new Order(
+                        Map.of("양송이수프", 20)), new VisitDate(30))
+        );
+    }
+
+    // [크리스마스 디데이 할인 적용 BookingInfo]
+    private static Stream<BookingInfo> provideBookingInfo6() {
+        return Stream.of(
+                new BookingInfo(new Order(
+                        Map.of("아이스크림", 2)), new VisitDate(1)),
+                new BookingInfo(new Order(
+                        Map.of("초코케이크", 1)), new VisitDate(23))
+        );
+    }
+
+    // [특별 할인 적용 BookingInfo]
+    private static Stream<BookingInfo> provideBookingInfo7() {
+        return Stream.of(
+                new BookingInfo(new Order(
+                        Map.of("티본스테이크", 1)), new VisitDate(31))
         );
     }
 }
