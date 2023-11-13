@@ -23,11 +23,6 @@ public class Benefit {
         return Collections.unmodifiableMap(eventDetails);
     }
 
-//    public Map<Menu, Integer> getGiveawayMenu() {
-//        PlannerEvent giveaway = createEvent(EventType.GIFT_EVENT);
-//        return ((Giveaway) giveaway).getMenus();
-//    }
-
     public Amount getTotalBenefitAmount() {
         int totalBenefitPrice = eventDetails.values().stream()
                 .mapToInt(Amount::getValue)
@@ -73,5 +68,4 @@ public class Benefit {
     private Order getOrder(BookingInfo bookingInfo) {
         return bookingInfo.getOrder();
     }
-
 }
