@@ -35,6 +35,32 @@ public class GiveawayTest {
         Assertions.assertThat(totalPrice).isEqualTo(0);
     }
 
+    @DisplayName("증정품 리스트 반환 테스트[샴페인 1개]")
+    @ParameterizedTest
+    @MethodSource("provideOrderTotalPriceGreaterThan120_000")
+    void getMenus(BookingInfo bookingInfo) {
+        // given & when
+        Giveaway giveaway = new Giveaway(bookingInfo);
+        Map<Menu, Integer> menus = giveaway.getMenus();
+
+        // then
+        Assertions.assertThat(menus).containsOnlyKeys(Menu.CHAMPAGNE);
+        Assertions.assertThat(menus.get(Menu.CHAMPAGNE)).isEqualTo(1);
+    }
+
+    @DisplayName("증정품 리스트 반환 테스트[없으면 NONE 반환]")
+    @ParameterizedTest
+    @MethodSource("provideOrderTotalPriceLessThan120_000")
+    void getMenusWhenNoGiveaway(BookingInfo bookingInfo) {
+        // given & when
+        Giveaway giveaway = new Giveaway(bookingInfo);
+        Map<Menu, Integer> menus = giveaway.getMenus();
+
+        // then
+        Assertions.assertThat(menus).containsOnlyKeys(Menu.NONE);
+        Assertions.assertThat(menus.get(Menu.NONE)).isEqualTo(0);
+    }
+
     private static Stream<BookingInfo> provideOrderTotalPriceGreaterThan120_000() {
         return Stream.of(
                 new BookingInfo(new Order(Map.of("티본스테이크", 10)), new VisitDate(25)),

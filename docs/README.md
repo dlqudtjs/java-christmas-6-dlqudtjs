@@ -170,7 +170,7 @@ SpecialDayDiscount class
 
 ```text
 Giveaway class
-- [✅] 증정품 리스트 반환 
+- [✅] 증정품 리스트 반환 - 테스트 [🟢]
 - [✅] 증정품 총 가격 반환 - 테스트 [🟢]
 ```
 
