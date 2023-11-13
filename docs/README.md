@@ -124,7 +124,6 @@ one
 ```text
 - [✅] Day 반환 - 테스트 [🟢]
 - [✅] 주말 여부 반환 - 테스트 [🟢]
-- [✅] 특별 날짜 여부 반환 - 테스트 [🟢]
 ```
 
 - 유효성 검사
@@ -154,7 +153,7 @@ ChristmasDDayDiscount class
 
 - 유효성 검사
 
-- [✅] 이벤트 기간 적용 테스트(1 ~ 25일) - 테스트 [🟢]
+- [✅] 이벤트 기간 적용 - 테스트 [🟢]
 ```
 
 ```text
@@ -170,6 +169,9 @@ WeekdayDiscount class
 ```text
 SpecialDayDiscount class
 - [✅] 특별 날짜 할인
+
+- 유효성 검사
+
 ```
 
 ```text

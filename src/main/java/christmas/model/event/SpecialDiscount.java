@@ -4,6 +4,7 @@ import static christmas.model.event.EventConfig.SPECIAL_DISCOUNT_PRICE;
 
 import christmas.model.Amount;
 import christmas.model.BookingInfo;
+import christmas.model.enums.EventDateType;
 
 public class SpecialDiscount implements PlannerEvent {
 
@@ -23,6 +24,10 @@ public class SpecialDiscount implements PlannerEvent {
     }
 
     private boolean isSpecialDay() {
-        return bookingInfo.getVisitDate().isSpecialDay();
+        return EventDateType.SPECIAL_DAY.is(getDay());
+    }
+
+    private int getDay() {
+        return bookingInfo.getVisitDate().getDay();
     }
 }
