@@ -172,6 +172,7 @@ SpecialDayDiscount class
 
 - 유효성 검사
 
+- [✅] 이벤트 기간 적용(1 ~ 31일) - 테스트 [🟢]
 ```
 
 ```text

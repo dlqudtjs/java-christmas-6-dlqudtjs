@@ -57,22 +57,4 @@ public class VisitDateTest {
         VisitDate date = new VisitDate(visitDate);
         Assertions.assertThat(date.isWeekend()).isFalse();
     }
-
-    @DisplayName("특별한 날 여부 반환 테스트 [ture]")
-    @ParameterizedTest
-    @ValueSource(ints = {3, 10, 17, 24, 25, 31})
-    void isSpecialDay(int visitDate) {
-        VisitDate date = new VisitDate(visitDate);
-        Assertions.assertThat(date.isSpecialDay()).isTrue();
-    }
-
-    @DisplayName("특별한 날 여부 반환 테스트 [false]")
-    @ParameterizedTest
-    @ValueSource(ints = {1, 2, 4, 5, 6, 7, 8, 9, 11, 12,
-            13, 14, 15, 16, 18, 19, 20, 21, 22, 23,
-            26, 27, 28, 29, 30})
-    void isNotSpecialDay(int visitDate) {
-        VisitDate date = new VisitDate(visitDate);
-        Assertions.assertThat(date.isSpecialDay()).isFalse();
-    }
 }
