@@ -43,4 +43,19 @@ public class WeekendDiscountTest {
         // then
         Assertions.assertThat(discountPrice).isEqualTo(0);
     }
+
+    @DisplayName("주말이지만 메인 메뉴가 없으면 할인이 적용되지 않는다.")
+    @ParameterizedTest
+    @ValueSource(ints = {1, 2, 8, 9, 15, 16, 22, 23, 29, 30})
+    void weekendDiscountTestFailWhenNoMainMenu(int date) {
+        // given & when
+        int menuCount = 3;
+        BookingInfo bookingInfo = new BookingInfo(new Order(Map.of("초코케이크", menuCount)), new VisitDate(date));
+        WeekendDiscount weekendDiscount = new WeekendDiscount(bookingInfo);
+
+        int discountPrice = weekendDiscount.getDiscount().getValue();
+
+        // then
+        Assertions.assertThat(discountPrice).isEqualTo(0);
+    }
 }

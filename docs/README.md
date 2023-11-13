@@ -149,7 +149,7 @@ Benefit class
 
 ```text
 ChristmasDDayDiscount class
-- [✅] 크리스마스 디데이 할인
+- [✅] 크리스마스 디데이 할인 - 테스트 [🟢]
 
 - 유효성 검사
 
@@ -158,7 +158,7 @@ ChristmasDDayDiscount class
 
 ```text
 WeekendDiscount class
-- [✅] 주말 할인
+- [✅] 주말 할인 - 테스트 [🟢]
 
 - 유효성 검사
 
