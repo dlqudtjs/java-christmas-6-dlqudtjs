@@ -40,6 +40,12 @@ public enum EventType {
         public PlannerEventFactory getEventFactory() {
             return Giveaway::new;
         }
+    },
+    NONE("없음", false) {
+        @Override
+        public PlannerEventFactory getEventFactory() {
+            return null;
+        }
     };
 
     private final String name;
