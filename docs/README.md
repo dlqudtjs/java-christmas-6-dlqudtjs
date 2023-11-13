@@ -142,9 +142,9 @@ one
 
 ```text
 Benefit class
-- [ ] 할인 리스트 반환
+- [✅] 할인 리스트 반환
 - [✅] 총 혜택 금액 반환
-- [✅] Giveaway 반환
+- [ ] Giveaway 반환
 - [ ] 배지 반환
 ```
 
