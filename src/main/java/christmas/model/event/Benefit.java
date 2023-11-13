@@ -58,7 +58,7 @@ public class Benefit {
     }
 
     private boolean canParticipateInEvent(Amount amount) {
-        return amount.isGreaterThan(new Amount(EVENT_ENTRY_MINIMUM));
+        return amount.isGreaterThanOrEqual(new Amount(EVENT_ENTRY_MINIMUM));
     }
 
     private Amount getTotalOrderPrice(BookingInfo bookingInfo) {
