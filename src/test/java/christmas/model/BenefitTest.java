@@ -138,6 +138,34 @@ public class BenefitTest {
         );
     }
 
+    @DisplayName("총 혜택 금액 반환 테스트[31423원]")
+    @ParameterizedTest
+    @MethodSource("provideTotalBenefitAmount1")
+    void getTotalBenefitAmountTest(BookingInfo bookingInfo) {
+        // given & when
+        Benefit benefit = new Benefit(bookingInfo);
+        int benefitPrice = benefit.getTotalBenefitAmount().getValue();
+
+        int expectedBenefitPrice = 31423;
+
+        // then
+        Assertions.assertThat(benefitPrice).isEqualTo(expectedBenefitPrice);
+    }
+
+    @DisplayName("총 혜택 금액 반환 테스트[31069원]")
+    @ParameterizedTest
+    @MethodSource("provideTotalBenefitAmount2")
+    void getTotalBenefitAmountTest2(BookingInfo bookingInfo) {
+        // given & when
+        Benefit benefit = new Benefit(bookingInfo);
+        int benefitPrice = benefit.getTotalBenefitAmount().getValue();
+
+        int expectedBenefitPrice = 31069;
+
+        // then
+        Assertions.assertThat(benefitPrice).isEqualTo(expectedBenefitPrice);
+    }
+
     private static Stream<BookingInfo> provideBenefitWhenAmountIsLessThanMinimum() {
         return Stream.of(
                 new BookingInfo(new Order(
@@ -230,6 +258,22 @@ public class BenefitTest {
         return Stream.of(
                 new BookingInfo(new Order(
                         Map.of("티본스테이크", 1)), new VisitDate(31))
+        );
+    }
+
+    // [평일, 크리스마스 디데이, 증정품, 할인 적용]
+    private static Stream<BookingInfo> provideTotalBenefitAmount1() {
+        return Stream.of(
+                new BookingInfo(new Order(
+                        Map.of("티본스테이크", 1, "레드와인", 1, "초코케이크", 1)), new VisitDate(25))
+        );
+    }
+
+    // [주말 메뉴 3개, 증정품 할인 적용]
+    private static Stream<BookingInfo> provideTotalBenefitAmount2() {
+        return Stream.of(
+                new BookingInfo(new Order(
+                        Map.of("티본스테이크", 3, "레드와인", 1, "초코케이크", 1)), new VisitDate(30))
         );
     }
 }
