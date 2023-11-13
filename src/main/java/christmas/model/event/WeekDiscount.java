@@ -4,7 +4,7 @@ import christmas.model.Amount;
 import christmas.model.BookingInfo;
 import christmas.model.enums.MenuType;
 
-public class WeekDiscount implements Event {
+public class WeekDiscount implements PlannerEvent {
 
     private static final int WEEKDAY_DISCOUNT_PRICE = 2_023;
     private static final int WEEKEND_DISCOUNT_PRICE = 2_023;

@@ -2,7 +2,7 @@ package christmas.model.event;
 
 import christmas.model.Amount;
 
-public interface Event {
+public interface PlannerEvent {
 
     public Amount getDiscount();
 }

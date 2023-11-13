@@ -3,7 +3,7 @@ package christmas.model.event;
 import christmas.model.Amount;
 import christmas.model.BookingInfo;
 
-public class SpecialDiscount implements Event {
+public class SpecialDiscount implements PlannerEvent {
 
     private static final int DISCOUNT_PRICE = 1_000;
     private final BookingInfo bookingInfo;
