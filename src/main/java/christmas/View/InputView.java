@@ -15,4 +15,11 @@ public class InputView {
 
         return Parser.parseToInt(Console.readLine());
     }
+
+    public static String readMenuCount() {
+        PlannerMessage message = PlannerMessage.INPUT_MENU_COUNT_MESSAGE;
+        System.out.println(message.getMessage());
+
+        return Console.readLine();
+    }
 }
