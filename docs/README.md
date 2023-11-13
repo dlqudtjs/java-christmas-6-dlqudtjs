@@ -168,6 +168,10 @@ WeekendDiscount class
 ```text
 WeekdayDiscount class
 - [✅] 평일 할인
+
+- 유효성 검사
+
+- [✅] 이벤트 기간 적용 - 테스트 [🟢]
 ```
 
 ```text
