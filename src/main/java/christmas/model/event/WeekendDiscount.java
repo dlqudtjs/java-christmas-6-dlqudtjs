@@ -1,14 +1,12 @@
 package christmas.model.event;
 
+import static christmas.model.event.EventConfig.MEEKEND_EVENT_MENU_TYPE;
+import static christmas.model.event.EventConfig.WEEKEND_DISCOUNT_PRICE;
+
 import christmas.model.Amount;
 import christmas.model.BookingInfo;
-import christmas.model.enums.MenuType;
 
 public class WeekendDiscount implements PlannerEvent {
-
-    private static final int WEEKEND_DISCOUNT_PRICE = 2_023;
-
-    private static final MenuType MENU_TYPE = MenuType.MAIN_DISH;
 
     private final BookingInfo bookingInfo;
 
@@ -30,7 +28,7 @@ public class WeekendDiscount implements PlannerEvent {
     }
 
     private int getMenuCountByMenuType() {
-        return bookingInfo.getOrder().getMenuTypeCount(MENU_TYPE);
+        return bookingInfo.getOrder().getMenuTypeCount(MEEKEND_EVENT_MENU_TYPE);
     }
 
     private boolean isWeekend() {
