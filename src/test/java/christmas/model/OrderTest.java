@@ -63,6 +63,23 @@ public class OrderTest {
                 .doesNotThrowAnyException();
     }
 
+    @DisplayName("음료수만 주문할 경우 예외가 발생한다.")
+    @ParameterizedTest
+    @MethodSource("provideOrderMenuOnlyDrink")
+    void orderMenuOnlyDrink(Map<String, Integer> menuCountMap) {
+        Assertions.assertThatThrownBy(() -> new Order(menuCountMap))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(ExceptionMessage.INVALID_MENU_ONLY_DRINK.getMessage());
+    }
+
+    @DisplayName("음료수를 제외한 메뉴를 주문할 경우 예외가 발생하지 않는다.")
+    @ParameterizedTest
+    @MethodSource("provideOrderMenuInAnotherMenuType")
+    void orderMenuInAnotherMenuType(Map<String, Integer> menuCountMap) {
+        Assertions.assertThatCode(() -> new Order(menuCountMap))
+                .doesNotThrowAnyException();
+    }
+
     private static Stream<Arguments> provideOrderMenuNotInMenuList() {
         return Stream.of(
                 Arguments.of(Map.of("불고기", 1)),
@@ -109,6 +126,34 @@ public class OrderTest {
                 Arguments.of(Map.of("티본스테이크", 20)),
                 Arguments.of(Map.of("제로콜라", 10, "양송이수프", 5, "레드와인", 5)),
                 Arguments.of(Map.of("레드와인", 1, "크리스마스파스타", 3, "초코케이크", 1, "티본스테이크", 3))
+        );
+    }
+
+    private static Stream<Arguments> provideOrderMenuOnlyDrink() {
+        return Stream.of(
+                Arguments.of(Map.of("제로콜라", 1)),
+                Arguments.of(Map.of("레드와인", 1)),
+                Arguments.of(Map.of("샴페인", 1)),
+                Arguments.of(Map.of("제로콜라", 1, "레드와인", 1, "샴페인", 1))
+        );
+    }
+
+    private static Stream<Arguments> provideOrderMenuInAnotherMenuType() {
+        return Stream.of(
+                // 에피타이저만 주문
+                Arguments.of(Map.of("양송이수프", 1)),
+                Arguments.of(Map.of("타파스", 1)),
+                Arguments.of(Map.of("시저샐러드", 1)),
+
+                // 메인만 주문
+                Arguments.of(Map.of("티본스테이크", 1)),
+                Arguments.of(Map.of("바비큐립", 1)),
+                Arguments.of(Map.of("해산물파스타", 1)),
+                Arguments.of(Map.of("크리스마스파스타", 1)),
+
+                // 디저트만 주문
+                Arguments.of(Map.of("초코케이크", 1)),
+                Arguments.of(Map.of("아이스크림", 1))
         );
     }
 }
