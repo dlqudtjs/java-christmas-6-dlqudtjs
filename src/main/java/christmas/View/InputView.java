@@ -1,5 +1,7 @@
 package christmas.View;
 
+import static christmas.constant.PlannerConfig.DECEMBER;
+
 import camp.nextstep.edu.missionutils.Console;
 import christmas.constant.ExceptionMessage;
 import christmas.constant.PlannerMessage;
@@ -16,7 +18,7 @@ public class InputView {
 
     public static int readVisitDate() {
         PlannerMessage message = PlannerMessage.INPUT_VISIT_DATE_MESSAGE;
-        System.out.println(message.getMessage());
+        System.out.println(message.getMessage(DECEMBER.getValue()));
 
         return Parser.parseToInt(Console.readLine());
     }

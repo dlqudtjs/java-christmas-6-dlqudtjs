@@ -4,9 +4,11 @@ import static christmas.constant.CommonSymbol.COLON_SPACE;
 import static christmas.constant.CommonSymbol.MENU_UNIT;
 import static christmas.constant.CommonSymbol.PRICE_UNIT;
 import static christmas.constant.CommonSymbol.SPACE;
+import static christmas.constant.PlannerConfig.DECEMBER;
 
 import christmas.constant.PlannerMessage;
 import christmas.model.Amount;
+import christmas.model.VisitDate;
 import christmas.model.enums.BadgeType;
 import christmas.model.enums.EventType;
 import christmas.model.enums.Menu;
@@ -19,12 +21,12 @@ public class OutputView {
 
     public static void printPlannerStartMessage() {
         PlannerMessage message = PlannerMessage.PLANNER_START_MESSAGE;
-        System.out.println(message.getMessage());
+        System.out.println(message.getMessage(DECEMBER.getValue()));
     }
 
-    public static void printEventBenefitPreviewMessage() {
+    public static void printEventBenefitPreviewMessage(VisitDate visitDate) {
         PlannerMessage message = PlannerMessage.EVENT_BENEFIT_PREVIEW_MESSAGE;
-        System.out.println(message.getMessage());
+        System.out.println(message.getMessage(DECEMBER.getValue(), visitDate.getDay()));
     }
 
     public static void printOrderDetailsTitle() {
@@ -91,7 +93,7 @@ public class OutputView {
 
     public static void printEventBadgeTitle() {
         PlannerMessage message = PlannerMessage.OUTPUT_EVENT_BADGE_TITLE_MESSAGE;
-        System.out.println(message.getMessage());
+        System.out.println(message.getMessage(DECEMBER.getValue()));
     }
 
     public static void printEventBadge(BadgeType badge) {

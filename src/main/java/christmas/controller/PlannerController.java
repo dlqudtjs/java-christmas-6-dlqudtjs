@@ -24,7 +24,7 @@ public class PlannerController {
         Giveaway giveaway = new Giveaway(bookingInfo);
         Benefit benefit = new Benefit(bookingInfo);
 
-        displayEventBenefitPreviewMessage();
+        displayEventBenefitPreviewMessage(visitDate);
         // <주문 메뉴>
         displayOrderDetails(order);
         // <할인 전 총주문 금액>
@@ -45,8 +45,8 @@ public class PlannerController {
         OutputView.printPlannerStartMessage();
     }
 
-    private void displayEventBenefitPreviewMessage() {
-        OutputView.printEventBenefitPreviewMessage();
+    private void displayEventBenefitPreviewMessage(VisitDate visitDate) {
+        OutputView.printEventBenefitPreviewMessage(visitDate);
         OutputView.printNewLine();
     }
 
