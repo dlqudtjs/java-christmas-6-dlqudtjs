@@ -3,6 +3,8 @@ package christmas.util;
 import christmas.constant.CommonSymbol;
 import christmas.constant.ExceptionMessage;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Parser {
 
@@ -19,6 +21,25 @@ public class Parser {
     }
 
     public static List<String> parseToList(String value, CommonSymbol symbol) {
-        return List.of(value.split(symbol.getSymbol()));
+        try {
+            return List.of(value.split(symbol.getSymbol()));
+        } catch (IllegalArgumentException e) {
+            ExceptionMessage message = ExceptionMessage.INVALID_MENU_COUNT_FORMAT;
+            throw new IllegalArgumentException(message.getMessage());
+        }
+    }
+
+    public static Map<String, Integer> parseToMap(List<String> menuCounts, CommonSymbol symbol) {
+        try {
+            return menuCounts.stream()
+                    .map(menuCount -> parseToList(menuCount, symbol))
+                    .collect(Collectors.toMap(
+                            menuCount -> menuCount.get(0),
+                            menuCount -> parseToInt(menuCount.get(1))
+                    ));
+        } catch (IllegalArgumentException e) {
+            ExceptionMessage message = ExceptionMessage.INVALID_MENU_COUNT_FORMAT;
+            throw new IllegalArgumentException(message.getMessage());
+        }
     }
 }
