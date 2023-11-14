@@ -1,6 +1,8 @@
 package christmas.model;
 
 import christmas.constant.ExceptionMessage;
+import christmas.model.enums.Menu;
+import christmas.model.enums.MenuType;
 import java.util.Map;
 import java.util.stream.Stream;
 import org.assertj.core.api.Assertions;
@@ -80,6 +82,22 @@ public class OrderTest {
                 .doesNotThrowAnyException();
     }
 
+    @DisplayName("총 주문 금액 반환")
+    @ParameterizedTest
+    @MethodSource("provideTotalOrderPrice")
+    void getTotalPrice(Map<String, Integer> menuCountMap, int expected) {
+        Order order = new Order(menuCountMap);
+        Assertions.assertThat(order.getTotalPrice().getValue()).isEqualTo(expected);
+    }
+
+    @DisplayName("메인 메뉴 개수 반환")
+    @ParameterizedTest
+    @MethodSource("provideMenuTypeCount")
+    void getMenuTypeCount(Order order, MenuType menuType, int expected) {
+        Assertions.assertThat(order.getMenuTypeCount(menuType)).isEqualTo(expected);
+    }
+
+
     private static Stream<Arguments> provideOrderMenuNotInMenuList() {
         return Stream.of(
                 Arguments.of(Map.of("불고기", 1)),
@@ -156,4 +174,31 @@ public class OrderTest {
                 Arguments.of(Map.of("아이스크림", 1))
         );
     }
+
+    private static Stream<Arguments> provideTotalOrderPrice() {
+        return
+                Stream.of(
+                        Arguments.of(Map.of("양송이수프", 1), Menu.MUSHROOM_SOUP.getPrice()),
+                        Arguments.of(Map.of("타파스", 1, "티본스테이크", 2),
+                                Menu.TAPAS.getPrice() + (Menu.T_BONE_STEAK.getPrice() * 2)),
+                        Arguments.of(Map.of("시저샐러드", 1, "바비큐립", 2, "초코케이크", 3),
+                                Menu.CAESAR_SALAD.getPrice() + (Menu.BBQ_RIBS.getPrice() * 2) + (
+                                        Menu.CHOCOLATE_CAKE.getPrice() * 3))
+                );
+    }
+
+    private static Stream<Arguments> provideMenuTypeCount() {
+        return Stream.of(
+                Arguments.of(new Order(Map.of("양송이수프", 1)), MenuType.APPETIZER, 1),
+                Arguments.of(new Order(Map.of("타파스", 1, "티본스테이크", 2)), MenuType.APPETIZER, 1),
+                Arguments.of(new Order(Map.of("시저샐러드", 1, "바비큐립", 2, "초코케이크", 3)), MenuType.APPETIZER, 1),
+                Arguments.of(new Order(Map.of("양송이수프", 1)), MenuType.MAIN_DISH, 0),
+                Arguments.of(new Order(Map.of("타파스", 1, "티본스테이크", 2)), MenuType.MAIN_DISH, 2),
+                Arguments.of(new Order(Map.of("시저샐러드", 1, "바비큐립", 2, "초코케이크", 3)), MenuType.DRINK, 0),
+                Arguments.of(new Order(Map.of("양송이수프", 1)), MenuType.DESSERT, 0),
+                Arguments.of(new Order(Map.of("타파스", 1, "티본스테이크", 2, "레드와인", 3)), MenuType.DRINK, 3),
+                Arguments.of(new Order(Map.of("시저샐러드", 1, "바비큐립", 2, "초코케이크", 3)), MenuType.DESSERT, 3)
+        );
+    }
 }
+
