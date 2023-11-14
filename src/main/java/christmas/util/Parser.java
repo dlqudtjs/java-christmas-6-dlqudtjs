@@ -42,8 +42,4 @@ public class Parser {
             throw new IllegalArgumentException(message.getMessage());
         }
     }
-
-    public static String parseToNumberFormat(int value) {
-        return String.format("%,d", value);
-    }
 }

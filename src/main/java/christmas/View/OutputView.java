@@ -1,10 +1,5 @@
 package christmas.View;
 
-import static christmas.constant.CommonSymbol.COLON_SPACE;
-import static christmas.constant.CommonSymbol.MENU_UNIT;
-import static christmas.constant.CommonSymbol.MINUS;
-import static christmas.constant.CommonSymbol.PRICE_UNIT;
-import static christmas.constant.CommonSymbol.SPACE;
 import static christmas.constant.PlannerConfig.DECEMBER;
 
 import christmas.constant.PlannerMessage;
@@ -13,7 +8,6 @@ import christmas.model.VisitDate;
 import christmas.model.enums.BadgeType;
 import christmas.model.enums.EventType;
 import christmas.model.enums.Menu;
-import christmas.util.Parser;
 import java.util.Map;
 
 public class OutputView {
@@ -37,8 +31,9 @@ public class OutputView {
     }
 
     public static void printOrderDetails(Map<Menu, Integer> order) {
+        PlannerMessage message = PlannerMessage.ORDER_DETAILS_MESSAGE;
         order.forEach((menu, count) ->
-                System.out.println(menu.getName() + SPACE.getSymbol() + count + MENU_UNIT.getSymbol())
+                System.out.println(message.getMessage(menu.getName(), count))
         );
     }
 
@@ -48,8 +43,8 @@ public class OutputView {
     }
 
     public static void printTotalPriceBeforeDiscount(int totalPriceBeforeDiscount) {
-        String parsedNumber = Parser.parseToNumberFormat(totalPriceBeforeDiscount);
-        System.out.println(parsedNumber + PRICE_UNIT.getSymbol());
+        PlannerMessage message = PlannerMessage.TOTAL_ORDER_AMOUNT_BEFORE_DISCOUNT_MESSAGE;
+        System.out.println(message.getMessage(totalPriceBeforeDiscount));
     }
 
     public static void printGiveawayTitle() {
@@ -64,8 +59,10 @@ public class OutputView {
             return;
         }
 
+        PlannerMessage message = PlannerMessage.GIVEAWAY_MENU_MESSAGE;
+
         giveaway.forEach((menu, count) ->
-                System.out.println(menu.getName() + SPACE.getSymbol() + count + MENU_UNIT.getSymbol())
+                System.out.println(message.getMessage(menu.getName(), count))
         );
     }
 
@@ -81,13 +78,13 @@ public class OutputView {
             return;
         }
 
+        PlannerMessage message = PlannerMessage.BENEFIT_DETAILS_MESSAGE;
+
         benefit.forEach((eventType, discount) ->
-                System.out.println(
-                        eventType.getName() + COLON_SPACE.getSymbol()
-                                + MINUS.getSymbol() + Parser.parseToNumberFormat(discount.getValue())
-                                + PRICE_UNIT.getSymbol()
-                )
-        );
+                System.out.println(message.getMessage(
+                        eventType.getName(), convertSign(discount.getValue()
+                        ))
+                ));
     }
 
     public static void printTotalBenefitAmountTitle() {
@@ -96,8 +93,8 @@ public class OutputView {
     }
 
     public static void printTotalBenefitAmount(int totalBenefitAmount) {
-        String parsedNumber = Parser.parseToNumberFormat(totalBenefitAmount);
-        System.out.println(MINUS.getSymbol() + parsedNumber + PRICE_UNIT.getSymbol());
+        PlannerMessage message = PlannerMessage.TOTAL_BENEFIT_AMOUNT_MESSAGE;
+        System.out.println(message.getMessage(convertSign(totalBenefitAmount)));
     }
 
     public static void printTotalExpectedPaymentAfterDiscountTitle() {
@@ -106,8 +103,8 @@ public class OutputView {
     }
 
     public static void printTotalExpectedPaymentAfterDiscount(Amount totalPrice, Amount discountPrice) {
-        String parsedNumber = Parser.parseToNumberFormat(totalPrice.getValue() - discountPrice.getValue());
-        System.out.println(parsedNumber + PRICE_UNIT.getSymbol());
+        PlannerMessage message = PlannerMessage.TOTAL_EXPECTED_PAYMENT_AFTER_DISCOUNT_MESSAGE;
+        System.out.println(message.getMessage(totalPrice.getValue() - discountPrice.getValue()));
     }
 
     public static void printEventBadgeTitle() {
@@ -116,7 +113,8 @@ public class OutputView {
     }
 
     public static void printEventBadge(BadgeType badge) {
-        System.out.println(badge.getName());
+        PlannerMessage message = PlannerMessage.EVENT_BADGE_MESSAGE;
+        System.out.println(message.getMessage(badge.getName()));
     }
 
     public static void printExceptionMessage(String message) {
@@ -133,5 +131,9 @@ public class OutputView {
 
     private static boolean isExistBenefit(Map<EventType, Amount> benefit) {
         return !benefit.containsKey(EventType.NONE);
+    }
+
+    private static int convertSign(int value) {
+        return value * -1;
     }
 }
