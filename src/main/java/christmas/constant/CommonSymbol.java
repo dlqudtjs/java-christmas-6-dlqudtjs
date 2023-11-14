@@ -5,7 +5,8 @@ public enum CommonSymbol {
     COMMA(","),
     DASH("-"),
     SPACE(" "),
-    MENU_UNIT("개");
+    MENU_UNIT("개"),
+    PRICE_UNIT("원");
 
     private final String symbol;
 

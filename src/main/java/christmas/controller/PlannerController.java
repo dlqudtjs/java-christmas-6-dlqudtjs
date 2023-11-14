@@ -12,17 +12,37 @@ import java.util.Map;
 public class PlannerController {
 
     public void run() {
-        OutputView.printPlannerStartMessage();
+        displayPlannerStartMessage();
 
         VisitDate visitDate = createVisitDate();
         Order order = new Order(createOrder());
 
+        displayEventBenefitPreviewMessage();
+        // <주문 메뉴>
         displayOrderDetails(order);
+        // <핳인 전 총주문 금액>
+        displayTotalPriceBeforeDiscount(order);
+    }
+
+    private void displayPlannerStartMessage() {
+        OutputView.printPlannerStartMessage();
+    }
+
+    private void displayEventBenefitPreviewMessage() {
+        OutputView.printEventBenefitPreviewMessage();
+        OutputView.printNewLine();
     }
 
     private void displayOrderDetails(Order order) {
         OutputView.printOrderDetailsTitle();
         OutputView.printOrderDetails(order.getMenuCountMap());
+        OutputView.printNewLine();
+    }
+
+    private void displayTotalPriceBeforeDiscount(Order order) {
+        OutputView.printTotalPriceBeforeDiscountTitle();
+        OutputView.printTotalPriceBeforeDiscount(order.getTotalPrice().getValue());
+        OutputView.printNewLine();
     }
 
     private VisitDate createVisitDate() {
