@@ -35,6 +35,7 @@ public class OutputView {
     }
 
     public static void printOrderDetails(Map<Menu, Integer> order) {
+
         order.forEach((menu, count) ->
                 System.out.println(menu.getName() + SPACE.getSymbol() + count + MENU_UNIT.getSymbol())
         );
@@ -55,6 +56,12 @@ public class OutputView {
     }
 
     public static void printGiveawayDetails(Map<Menu, Integer> giveaway) {
+        if (!isExistGiveaway(giveaway)) {
+            PlannerMessage message = PlannerMessage.OUTPUT_NO_DETAIL_MESSAGE;
+            System.out.println(message.getMessage());
+            return;
+        }
+
         giveaway.forEach((menu, count) ->
                 System.out.println(menu.getName() + SPACE.getSymbol() + count + MENU_UNIT.getSymbol())
         );
@@ -66,6 +73,12 @@ public class OutputView {
     }
 
     public static void printBenefitDetails(Map<EventType, Amount> benefit) {
+        if (!isExistBenefit(benefit)) {
+            PlannerMessage message = PlannerMessage.OUTPUT_NO_DETAIL_MESSAGE;
+            System.out.println(message.getMessage());
+            return;
+        }
+
         benefit.forEach((eventType, discount) ->
                 System.out.println(
                         eventType.getName() + COLON_SPACE.getSymbol() + discount.getValue() + PRICE_UNIT.getSymbol()
@@ -106,5 +119,13 @@ public class OutputView {
 
     public static void printNewLine() {
         System.out.println();
+    }
+
+    private static boolean isExistGiveaway(Map<Menu, Integer> giveaway) {
+        return !giveaway.containsKey(Menu.NONE);
+    }
+
+    private static boolean isExistBenefit(Map<EventType, Amount> benefit) {
+        return !benefit.containsKey(EventType.NONE);
     }
 }

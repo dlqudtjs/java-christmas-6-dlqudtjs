@@ -12,7 +12,8 @@ public enum PlannerMessage {
     OUTPUT_BENEFIT_DETAILS_TITLE_MESSAGE("<혜택 내역>"),
     OUTPUT_TOTAL_BENEFIT_AMOUNT_TITLE_MESSAGE("<총혜택 금액>"),
     OUTPUT_TOTAL_EXPECTED_PAYMENT_AFTER_DISCOUNT_TITLE_MESSAGE("<할인 후 예상 결제 금액>"),
-    OUTPUT_EVENT_BADGE_TITLE_MESSAGE("<%d월 이벤트 배지>");
+    OUTPUT_EVENT_BADGE_TITLE_MESSAGE("<%d월 이벤트 배지>"),
+    OUTPUT_NO_DETAIL_MESSAGE("없음");
 
     private final String message;
 

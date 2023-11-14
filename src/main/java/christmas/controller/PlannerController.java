@@ -11,7 +11,6 @@ import christmas.model.event.Benefit;
 import christmas.model.event.Giveaway;
 import christmas.util.Parser;
 import java.util.List;
-import java.util.Map;
 
 public class PlannerController {
 
@@ -19,7 +18,7 @@ public class PlannerController {
         displayPlannerStartMessage();
 
         VisitDate visitDate = createVisitDate();
-        Order order = new Order(createOrder());
+        Order order = createOrder();
         BookingInfo bookingInfo = new BookingInfo(order, visitDate);
         Giveaway giveaway = new Giveaway(bookingInfo);
         Benefit benefit = new Benefit(bookingInfo);
@@ -102,11 +101,11 @@ public class PlannerController {
         OutputView.printNewLine();
     }
 
-    private Map<String, Integer> createOrder() {
+    private Order createOrder() {
         do {
             try {
                 List<String> menuCounts = parseMenuCount(readMenuCount(), CommonSymbol.COMMA);
-                return Parser.parseToMap(menuCounts, CommonSymbol.DASH);
+                return new Order(Parser.parseToMap(menuCounts, CommonSymbol.DASH));
             } catch (IllegalArgumentException e) {
                 OutputView.printExceptionMessage(e.getMessage());
             }
