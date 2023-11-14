@@ -37,7 +37,8 @@ public class PlannerController {
         displayTotalBenefitPrice(benefit);
         // <할인 후 예상 결제 금액 출력>
         displayTotalExpectedPaymentAfterDiscount(order.getTotalPrice(), calculateDiscountPrice(benefit, giveaway));
-
+        // <12월 이벤트 배지>
+        displayEventBadge(benefit);
     }
 
     private void displayPlannerStartMessage() {
@@ -95,6 +96,12 @@ public class PlannerController {
         OutputView.printNewLine();
     }
 
+    private void displayEventBadge(Benefit benefit) {
+        OutputView.printEventBadgeTitle();
+        OutputView.printEventBadge(benefit.getBadge());
+        OutputView.printNewLine();
+    }
+
     private Map<String, Integer> createOrder() {
         do {
             try {
@@ -111,7 +118,7 @@ public class PlannerController {
     }
 
     private List<String> parseMenuCount(String menuCount, CommonSymbol symbol) {
-        return Parser.parseToList(menuCount, CommonSymbol.COMMA);
+        return Parser.parseToList(menuCount, symbol);
     }
 
     private int readVisitDate() {
