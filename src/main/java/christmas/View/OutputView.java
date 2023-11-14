@@ -2,6 +2,7 @@ package christmas.View;
 
 import static christmas.constant.CommonSymbol.COLON_SPACE;
 import static christmas.constant.CommonSymbol.MENU_UNIT;
+import static christmas.constant.CommonSymbol.MINUS;
 import static christmas.constant.CommonSymbol.PRICE_UNIT;
 import static christmas.constant.CommonSymbol.SPACE;
 import static christmas.constant.PlannerConfig.DECEMBER;
@@ -12,6 +13,7 @@ import christmas.model.VisitDate;
 import christmas.model.enums.BadgeType;
 import christmas.model.enums.EventType;
 import christmas.model.enums.Menu;
+import christmas.util.Parser;
 import java.util.Map;
 
 public class OutputView {
@@ -35,7 +37,6 @@ public class OutputView {
     }
 
     public static void printOrderDetails(Map<Menu, Integer> order) {
-
         order.forEach((menu, count) ->
                 System.out.println(menu.getName() + SPACE.getSymbol() + count + MENU_UNIT.getSymbol())
         );
@@ -47,7 +48,8 @@ public class OutputView {
     }
 
     public static void printTotalPriceBeforeDiscount(int totalPriceBeforeDiscount) {
-        System.out.println(totalPriceBeforeDiscount + PRICE_UNIT.getSymbol());
+        String parsedNumber = Parser.parseToNumberFormat(totalPriceBeforeDiscount);
+        System.out.println(parsedNumber + PRICE_UNIT.getSymbol());
     }
 
     public static void printGiveawayTitle() {
@@ -81,7 +83,9 @@ public class OutputView {
 
         benefit.forEach((eventType, discount) ->
                 System.out.println(
-                        eventType.getName() + COLON_SPACE.getSymbol() + discount.getValue() + PRICE_UNIT.getSymbol()
+                        eventType.getName() + COLON_SPACE.getSymbol()
+                                + MINUS.getSymbol() + Parser.parseToNumberFormat(discount.getValue())
+                                + PRICE_UNIT.getSymbol()
                 )
         );
     }
@@ -92,7 +96,8 @@ public class OutputView {
     }
 
     public static void printTotalBenefitAmount(int totalBenefitAmount) {
-        System.out.println(totalBenefitAmount + PRICE_UNIT.getSymbol());
+        String parsedNumber = Parser.parseToNumberFormat(totalBenefitAmount);
+        System.out.println(MINUS.getSymbol() + parsedNumber + PRICE_UNIT.getSymbol());
     }
 
     public static void printTotalExpectedPaymentAfterDiscountTitle() {
@@ -101,7 +106,8 @@ public class OutputView {
     }
 
     public static void printTotalExpectedPaymentAfterDiscount(Amount totalPrice, Amount discountPrice) {
-        System.out.println((totalPrice.getValue() - discountPrice.getValue()) + PRICE_UNIT.getSymbol());
+        String parsedNumber = Parser.parseToNumberFormat(totalPrice.getValue() - discountPrice.getValue());
+        System.out.println(parsedNumber + PRICE_UNIT.getSymbol());
     }
 
     public static void printEventBadgeTitle() {

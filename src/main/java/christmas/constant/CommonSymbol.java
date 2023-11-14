@@ -7,7 +7,8 @@ public enum CommonSymbol {
     SPACE(" "),
     MENU_UNIT("개"),
     PRICE_UNIT("원"),
-    COLON_SPACE(": ");
+    COLON_SPACE(": "),
+    MINUS("-");
 
     private final String symbol;
 
