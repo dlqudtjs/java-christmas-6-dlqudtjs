@@ -7,6 +7,7 @@ import static christmas.constant.CommonSymbol.SPACE;
 
 import christmas.constant.PlannerMessage;
 import christmas.model.Amount;
+import christmas.model.enums.BadgeType;
 import christmas.model.enums.EventType;
 import christmas.model.enums.Menu;
 import java.util.Map;
@@ -77,6 +78,24 @@ public class OutputView {
 
     public static void printTotalBenefitAmount(int totalBenefitAmount) {
         System.out.println(totalBenefitAmount + PRICE_UNIT.getSymbol());
+    }
+
+    public static void printTotalExpectedPaymentAfterDiscountTitle() {
+        PlannerMessage message = PlannerMessage.OUTPUT_TOTAL_EXPECTED_PAYMENT_AFTER_DISCOUNT_TITLE_MESSAGE;
+        System.out.println(message.getMessage());
+    }
+
+    public static void printTotalExpectedPaymentAfterDiscount(Amount totalPrice, Amount discountPrice) {
+        System.out.println((totalPrice.getValue() - discountPrice.getValue()) + PRICE_UNIT.getSymbol());
+    }
+
+    public static void printEventBadgeTitle() {
+        PlannerMessage message = PlannerMessage.OUTPUT_EVENT_BADGE_TITLE_MESSAGE;
+        System.out.println(message.getMessage());
+    }
+
+    public static void printEventBadge(BadgeType badge) {
+        System.out.println(badge.getName());
     }
 
     public static void printExceptionMessage(String message) {

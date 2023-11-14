@@ -3,6 +3,7 @@ package christmas.controller;
 import christmas.View.InputView;
 import christmas.View.OutputView;
 import christmas.constant.CommonSymbol;
+import christmas.model.Amount;
 import christmas.model.BookingInfo;
 import christmas.model.Order;
 import christmas.model.VisitDate;
@@ -34,6 +35,9 @@ public class PlannerController {
         displayBenefitDetails(benefit);
         // <총혜택 금액>
         displayTotalBenefitPrice(benefit);
+        // <할인 후 예상 결제 금액 출력>
+        displayTotalExpectedPaymentAfterDiscount(order.getTotalPrice(), calculateDiscountPrice(benefit, giveaway));
+
     }
 
     private void displayPlannerStartMessage() {
@@ -85,6 +89,12 @@ public class PlannerController {
         } while (true);
     }
 
+    private void displayTotalExpectedPaymentAfterDiscount(Amount totalPrice, Amount discountPrice) {
+        OutputView.printTotalExpectedPaymentAfterDiscountTitle();
+        OutputView.printTotalExpectedPaymentAfterDiscount(totalPrice, discountPrice);
+        OutputView.printNewLine();
+    }
+
     private Map<String, Integer> createOrder() {
         do {
             try {
@@ -106,5 +116,12 @@ public class PlannerController {
 
     private int readVisitDate() {
         return InputView.readVisitDate();
+    }
+
+    private Amount calculateDiscountPrice(Benefit benefit, Giveaway giveaway) {
+        Amount amount = benefit.getTotalBenefitAmount();
+        amount.discount(giveaway.getDiscount());
+
+        return amount;
     }
 }
