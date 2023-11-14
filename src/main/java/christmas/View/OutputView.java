@@ -79,7 +79,6 @@ public class OutputView {
         }
 
         PlannerMessage message = PlannerMessage.BENEFIT_DETAILS_MESSAGE;
-
         benefit.forEach((eventType, discount) ->
                 System.out.println(message.getMessage(
                         eventType.getName(), convertSign(discount.getValue()

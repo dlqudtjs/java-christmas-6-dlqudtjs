@@ -1,7 +1,5 @@
 package christmas.model.event;
 
-import static christmas.model.event.EventConfig.EVENT_ENTRY_MINIMUM;
-
 import christmas.model.Amount;
 import christmas.model.BookingInfo;
 import christmas.model.Order;
@@ -41,12 +39,19 @@ public class Benefit {
     }
 
     private Map<EventType, Amount> createEventDetails(BookingInfo bookingInfo) {
-        if (!canParticipateInEvent(getTotalOrderPrice(bookingInfo))) {
-            return Map.of(EventType.NONE, new Amount(0));
+        Map<EventType, Amount> eventDetails = generateEventDetails(bookingInfo);
+        if (eventDetails.size() > 0) {
+            return eventDetails;
         }
 
+        return Map.of(EventType.NONE, new Amount(0));
+    }
+
+    private Map<EventType, Amount> generateEventDetails(BookingInfo bookingInfo) {
         return getActiveEventTypes().stream()
-                .filter(eventType -> getEventDiscountPrice(eventType, bookingInfo).getValue() > 0)
+                .filter(eventType -> canParticipateInEvent(eventType, getTotalOrderPrice(bookingInfo)))
+                .filter(eventType -> createEvent(eventType, bookingInfo).getDiscount().getValue() > 0)
+                .filter(eventType -> eventType != EventType.NONE)
                 .collect(Collectors.toMap(
                         eventType -> eventType,
                         eventType -> getEventDiscountPrice(eventType, bookingInfo)
@@ -62,15 +67,15 @@ public class Benefit {
         return EventType.getActiveEventTypes();
     }
 
-    private boolean canParticipateInEvent(Amount amount) {
-        return amount.isGreaterThanOrEqual(new Amount(EVENT_ENTRY_MINIMUM));
-    }
-
     private Amount getTotalOrderPrice(BookingInfo bookingInfo) {
         return getOrder(bookingInfo).getTotalPrice();
     }
 
     private Order getOrder(BookingInfo bookingInfo) {
         return bookingInfo.getOrder();
+    }
+
+    private boolean canParticipateInEvent(EventType eventType, Amount amount) {
+        return eventType.canParticipateInEvent(amount.getValue());
     }
 }

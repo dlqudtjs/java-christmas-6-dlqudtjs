@@ -11,7 +11,6 @@ public class EventConfig {
     public static final int SPECIAL_DISCOUNT_PRICE = 1_000;
     public static final int WEEKDAY_DISCOUNT_PRICE = 2_023;
     public static final int WEEKEND_DISCOUNT_PRICE = 2_023;
-    public static final int EVENT_ENTRY_MINIMUM = 10_000;
     public static final MenuType WEEKDAY_EVENT_MENU_TYPE = MenuType.DESSERT;
 
     public static final MenuType WEEKEND_EVENT_MENU_TYPE = MenuType.MAIN_DISH;
