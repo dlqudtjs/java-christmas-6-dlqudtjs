@@ -1,10 +1,13 @@
 package christmas.View;
 
+import static christmas.constant.CommonSymbol.COLON_SPACE;
 import static christmas.constant.CommonSymbol.MENU_UNIT;
 import static christmas.constant.CommonSymbol.PRICE_UNIT;
 import static christmas.constant.CommonSymbol.SPACE;
 
 import christmas.constant.PlannerMessage;
+import christmas.model.Amount;
+import christmas.model.enums.EventType;
 import christmas.model.enums.Menu;
 import java.util.Map;
 
@@ -51,6 +54,19 @@ public class OutputView {
     public static void printGiveawayDetails(Map<Menu, Integer> giveaway) {
         giveaway.forEach((menu, count) ->
                 System.out.println(menu.getName() + SPACE.getSymbol() + count + MENU_UNIT.getSymbol())
+        );
+    }
+
+    public static void printBenefitDetailsTitle() {
+        PlannerMessage message = PlannerMessage.OUTPUT_BENEFIT_DETAILS_TITLE_MESSAGE;
+        System.out.println(message.getMessage());
+    }
+
+    public static void printBenefitDetails(Map<EventType, Amount> benefit) {
+        benefit.forEach((eventType, discount) ->
+                System.out.println(
+                        eventType.getName() + COLON_SPACE.getSymbol() + discount.getValue() + PRICE_UNIT.getSymbol()
+                )
         );
     }
 

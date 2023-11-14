@@ -6,6 +6,7 @@ import christmas.constant.CommonSymbol;
 import christmas.model.BookingInfo;
 import christmas.model.Order;
 import christmas.model.VisitDate;
+import christmas.model.event.Benefit;
 import christmas.model.event.Giveaway;
 import christmas.util.Parser;
 import java.util.List;
@@ -20,6 +21,7 @@ public class PlannerController {
         Order order = new Order(createOrder());
         BookingInfo bookingInfo = new BookingInfo(order, visitDate);
         Giveaway giveaway = new Giveaway(bookingInfo);
+        Benefit benefit = new Benefit(bookingInfo);
 
         displayEventBenefitPreviewMessage();
         // <주문 메뉴>
@@ -28,6 +30,8 @@ public class PlannerController {
         displayTotalPriceBeforeDiscount(order);
         // <증정 메뉴>
         displayGiveawayDetails(giveaway);
+        // <혜택 내역>
+        displayBenefitDetails(benefit);
     }
 
     private void displayPlannerStartMessage() {
@@ -54,6 +58,12 @@ public class PlannerController {
     private void displayGiveawayDetails(Giveaway giveaway) {
         OutputView.printGiveawayTitle();
         OutputView.printGiveawayDetails(giveaway.getMenus());
+        OutputView.printNewLine();
+    }
+
+    private void displayBenefitDetails(Benefit benefit) {
+        OutputView.printBenefitDetailsTitle();
+        OutputView.printBenefitDetails(benefit.getEventDetails());
         OutputView.printNewLine();
     }
 
