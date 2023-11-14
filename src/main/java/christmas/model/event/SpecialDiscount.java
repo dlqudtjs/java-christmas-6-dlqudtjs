@@ -1,5 +1,6 @@
 package christmas.model.event;
 
+import static christmas.constant.PlannerConfig.NONE;
 import static christmas.model.event.EventConfig.SPECIAL_DISCOUNT_PRICE;
 
 import christmas.model.Amount;
@@ -20,7 +21,7 @@ public class SpecialDiscount implements PlannerEvent {
             return new Amount(SPECIAL_DISCOUNT_PRICE);
         }
 
-        return new Amount(0);
+        return new Amount(NONE.getValue());
     }
 
     private boolean isSpecialDay() {

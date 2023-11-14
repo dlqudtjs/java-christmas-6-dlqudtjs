@@ -1,5 +1,6 @@
 package christmas.model.event;
 
+import static christmas.constant.PlannerConfig.NONE;
 import static christmas.model.event.EventConfig.WEEKEND_DISCOUNT_PRICE;
 import static christmas.model.event.EventConfig.WEEKEND_EVENT_MENU_TYPE;
 
@@ -20,7 +21,7 @@ public class WeekendDiscount implements PlannerEvent {
             return new Amount(getWeekendDiscount());
         }
 
-        return new Amount(0);
+        return new Amount(NONE.getValue());
     }
 
     private int getWeekendDiscount() {

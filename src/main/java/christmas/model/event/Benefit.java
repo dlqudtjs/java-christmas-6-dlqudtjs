@@ -1,5 +1,7 @@
 package christmas.model.event;
 
+import static christmas.constant.PlannerConfig.NONE;
+
 import christmas.model.Amount;
 import christmas.model.BookingInfo;
 import christmas.model.Order;
@@ -40,17 +42,17 @@ public class Benefit {
 
     private Map<EventType, Amount> createEventDetails(BookingInfo bookingInfo) {
         Map<EventType, Amount> eventDetails = generateEventDetails(bookingInfo);
-        if (eventDetails.size() > 0) {
+        if (eventDetails.size() != NONE.getValue()) {
             return eventDetails;
         }
 
-        return Map.of(EventType.NONE, new Amount(0));
+        return Map.of(EventType.NONE, new Amount(NONE.getValue()));
     }
 
     private Map<EventType, Amount> generateEventDetails(BookingInfo bookingInfo) {
         return getActiveEventTypes().stream()
                 .filter(eventType -> canParticipateInEvent(eventType, getTotalOrderPrice(bookingInfo)))
-                .filter(eventType -> createEvent(eventType, bookingInfo).getDiscount().getValue() > 0)
+                .filter(eventType -> createEvent(eventType, bookingInfo).getDiscount().getValue() > NONE.getValue())
                 .filter(eventType -> eventType != EventType.NONE)
                 .collect(Collectors.toMap(
                         eventType -> eventType,

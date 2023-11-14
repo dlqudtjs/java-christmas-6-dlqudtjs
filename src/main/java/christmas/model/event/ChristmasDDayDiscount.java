@@ -1,5 +1,6 @@
 package christmas.model.event;
 
+import static christmas.constant.PlannerConfig.NONE;
 import static christmas.model.event.EventConfig.CHRISTMAS_D_DAY_DISCOUNT_PRICE;
 import static christmas.model.event.EventConfig.INIT_PRICE;
 import static christmas.model.event.EventConfig.LAST_EVENT_DAY;
@@ -19,7 +20,7 @@ public class ChristmasDDayDiscount implements PlannerEvent {
     @Override
     public Amount getDiscount() {
         if (isPastLastEventDay()) {
-            return new Amount(0);
+            return new Amount(NONE.getValue());
         }
 
         return new Amount(calculateDiscountPrice());

@@ -1,5 +1,7 @@
 package christmas.model.event;
 
+import static christmas.constant.PlannerConfig.NONE;
+
 import christmas.model.Amount;
 import christmas.model.BookingInfo;
 import christmas.model.Order;
@@ -35,7 +37,7 @@ public class Giveaway implements PlannerEvent {
 
     private Map<Menu, Integer> generateGiveaway(BookingInfo bookingInfo) {
         if (!canProvideGiveaway(bookingInfo)) {
-            return Map.of(Menu.NONE, 0);
+            return Map.of(Menu.NONE, NONE.getValue());
         }
 
         return giveawayType.getMenus().stream()
