@@ -7,6 +7,7 @@ import java.util.stream.Stream;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 public class GiveawayTest {
@@ -14,25 +15,25 @@ public class GiveawayTest {
     @DisplayName("증정품 총 가격 반환 테스트[샴페인 1개]")
     @ParameterizedTest
     @MethodSource("provideOrderTotalPriceGreaterThan120_000")
-    void getTotalPrice(BookingInfo bookingInfo) {
+    void getTotalPrice(BookingInfo bookingInfo, int expectedPrice) {
         // given & when
         Giveaway giveaway = new Giveaway(bookingInfo);
         int totalPrice = giveaway.getDiscount().getValue();
 
         // then
-        Assertions.assertThat(totalPrice).isEqualTo(Menu.CHAMPAGNE.getPrice());
+        Assertions.assertThat(totalPrice).isEqualTo(expectedPrice);
     }
 
     @DisplayName("증정품 총 가격 반환 테스트[없음]")
     @ParameterizedTest
     @MethodSource("provideOrderTotalPriceLessThan120_000")
-    void getTotalPriceWhenNoGiveaway(BookingInfo bookingInfo) {
+    void getTotalPriceWhenNoGiveaway(BookingInfo bookingInfo, int expectedPrice) {
         // given & when
         Giveaway giveaway = new Giveaway(bookingInfo);
         int totalPrice = giveaway.getDiscount().getValue();
 
         // then
-        Assertions.assertThat(totalPrice).isEqualTo(0);
+        Assertions.assertThat(totalPrice).isEqualTo(expectedPrice);
     }
 
     @DisplayName("증정품 리스트 반환 테스트[샴페인 1개]")
@@ -61,17 +62,21 @@ public class GiveawayTest {
         Assertions.assertThat(menus.get(Menu.NONE)).isEqualTo(0);
     }
 
-    private static Stream<BookingInfo> provideOrderTotalPriceGreaterThan120_000() {
+    private static Stream<Arguments> provideOrderTotalPriceGreaterThan120_000() {
         return Stream.of(
-                new BookingInfo(new Order(Map.of("티본스테이크", 10)), new VisitDate(25)),
-                new BookingInfo(new Order(Map.of("초코케이크", 8)), new VisitDate(26))
+                Arguments.of(new BookingInfo(new Order(Map.of("티본스테이크", 10)), new VisitDate(25)),
+                        Menu.CHAMPAGNE.getPrice()),
+                Arguments.of(new BookingInfo(new Order(Map.of("초코케이크", 8)), new VisitDate(26)),
+                        Menu.CHAMPAGNE.getPrice())
         );
     }
 
-    private static Stream<BookingInfo> provideOrderTotalPriceLessThan120_000() {
+    private static Stream<Arguments> provideOrderTotalPriceLessThan120_000() {
         return Stream.of(
-                new BookingInfo(new Order(Map.of("티본스테이크", 1)), new VisitDate(25)),
-                new BookingInfo(new Order(Map.of("바비큐립", 1, "티본스테이크", 1)), new VisitDate(26))
+                Arguments.of(new BookingInfo(new Order(Map.of("티본스테이크", 1)), new VisitDate(25)),
+                        Menu.NONE.getPrice()),
+                Arguments.of(new BookingInfo(new Order(Map.of("바비큐립", 1, "티본스테이크", 1)), new VisitDate(26)),
+                        Menu.NONE.getPrice())
         );
     }
 }
