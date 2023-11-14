@@ -12,9 +12,17 @@ import java.util.Map;
 public class PlannerController {
 
     public void run() {
+        OutputView.printPlannerStartMessage();
+
         VisitDate visitDate = createVisitDate();
         Order order = new Order(createOrder());
 
+        displayOrderDetails(order);
+    }
+
+    private void displayOrderDetails(Order order) {
+        OutputView.printOrderDetailsTitle();
+        OutputView.printOrderDetails(order.getMenuCountMap());
     }
 
     private VisitDate createVisitDate() {

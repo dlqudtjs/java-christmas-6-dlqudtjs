@@ -3,7 +3,9 @@ package christmas.constant;
 public enum CommonSymbol {
 
     COMMA(","),
-    DASH("-");
+    DASH("-"),
+    SPACE(" "),
+    MENU_UNIT("개");
 
     private final String symbol;
 

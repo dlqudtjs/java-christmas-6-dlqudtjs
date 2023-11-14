@@ -4,6 +4,7 @@ import christmas.constant.ExceptionMessage;
 import christmas.constant.PlannerConfig;
 import christmas.model.enums.Menu;
 import christmas.model.enums.MenuType;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -15,6 +16,10 @@ public class Order {
     public Order(Map<String, Integer> tempMenuCountMap) {
         validate(tempMenuCountMap);
         this.menuCountMap = createMenuCountMap(tempMenuCountMap);
+    }
+
+    public Map<Menu, Integer> getMenuCountMap() {
+        return Collections.unmodifiableMap(menuCountMap);
     }
 
     public Amount getTotalPrice() {
