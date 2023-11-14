@@ -17,6 +17,6 @@ public enum ExceptionMessage {
     }
 
     public String getMessage() {
-        return ERROR_TAG + message;
+        return ERROR_TAG.message + message;
     }
 }
