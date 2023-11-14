@@ -43,6 +43,17 @@ public class OutputView {
         System.out.println(totalPriceBeforeDiscount + PRICE_UNIT.getSymbol());
     }
 
+    public static void printGiveawayTitle() {
+        PlannerMessage message = PlannerMessage.OUTPUT_GIVEAWAY_MENU_TITLE_MESSAGE;
+        System.out.println(message.getMessage());
+    }
+
+    public static void printGiveawayDetails(Map<Menu, Integer> giveaway) {
+        giveaway.forEach((menu, count) ->
+                System.out.println(menu.getName() + SPACE.getSymbol() + count + MENU_UNIT.getSymbol())
+        );
+    }
+
     public static void printExceptionMessage(String message) {
         System.out.println(message);
     }
