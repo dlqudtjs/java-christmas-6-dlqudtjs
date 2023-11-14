@@ -32,6 +32,8 @@ public class PlannerController {
         displayGiveawayDetails(giveaway);
         // <혜택 내역>
         displayBenefitDetails(benefit);
+        // <총혜택 금액>
+        displayTotalBenefitPrice(benefit);
     }
 
     private void displayPlannerStartMessage() {
@@ -64,6 +66,12 @@ public class PlannerController {
     private void displayBenefitDetails(Benefit benefit) {
         OutputView.printBenefitDetailsTitle();
         OutputView.printBenefitDetails(benefit.getEventDetails());
+        OutputView.printNewLine();
+    }
+
+    private void displayTotalBenefitPrice(Benefit benefit) {
+        OutputView.printTotalBenefitAmountTitle();
+        OutputView.printTotalBenefitAmount(benefit.getTotalBenefitAmount().getValue());
         OutputView.printNewLine();
     }
 

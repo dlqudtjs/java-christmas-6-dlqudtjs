@@ -38,7 +38,7 @@ public class OutputView {
     }
 
     public static void printTotalPriceBeforeDiscountTitle() {
-        PlannerMessage message = PlannerMessage.OUTPUT_TOTAL_ORDER_PRICE_BEFORE_DISCOUNT_TITLE_MESSAGE;
+        PlannerMessage message = PlannerMessage.OUTPUT_TOTAL_ORDER_AMOUNT_BEFORE_DISCOUNT_TITLE_MESSAGE;
         System.out.println(message.getMessage());
     }
 
@@ -68,6 +68,15 @@ public class OutputView {
                         eventType.getName() + COLON_SPACE.getSymbol() + discount.getValue() + PRICE_UNIT.getSymbol()
                 )
         );
+    }
+
+    public static void printTotalBenefitAmountTitle() {
+        PlannerMessage message = PlannerMessage.OUTPUT_TOTAL_BENEFIT_AMOUNT_TITLE_MESSAGE;
+        System.out.println(message.getMessage());
+    }
+
+    public static void printTotalBenefitAmount(int totalBenefitAmount) {
+        System.out.println(totalBenefitAmount + PRICE_UNIT.getSymbol());
     }
 
     public static void printExceptionMessage(String message) {
