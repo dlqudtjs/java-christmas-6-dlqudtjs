@@ -6,7 +6,8 @@ public enum PlannerConfig {
     DECEMBER(12),
     MAX_TOTAL_MENU_COUNT(20),
     MIN_MENU_COUNT(1),
-    NONE(0);
+    NONE(0),
+    BASIC_GIVEAWAY_COUNT(1);
 
     private final int value;
 

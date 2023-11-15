@@ -16,10 +16,6 @@ public class Amount {
         value -= amount.getValue();
     }
 
-    public boolean isGreaterThanOrEqual(Amount amount) {
-        return value >= amount.getValue();
-    }
-
     public void add(Amount amount) {
         value += amount.getValue();
     }
