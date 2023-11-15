@@ -1,7 +1,9 @@
 package christmas.model;
 
+import static christmas.constant.PlannerConfig.DECEMBER;
+import static christmas.constant.PlannerConfig.PLANNER_YEAR;
+
 import christmas.constant.ExceptionMessage;
-import christmas.constant.PlannerConfig;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.YearMonth;
@@ -26,8 +28,8 @@ public class VisitDate {
 
     private LocalDate settingDate(int day) {
         return LocalDate.of(
-                PlannerConfig.PLANNER_YEAR.getValue(),
-                PlannerConfig.DECEMBER.getValue(),
+                PLANNER_YEAR.getValue(),
+                DECEMBER.getValue(),
                 day);
     }
 
@@ -37,8 +39,8 @@ public class VisitDate {
 
     private void validateDay(int day) {
         YearMonth yearMonth = YearMonth.of(
-                PlannerConfig.PLANNER_YEAR.getValue(),
-                PlannerConfig.DECEMBER.getValue());
+                PLANNER_YEAR.getValue(),
+                DECEMBER.getValue());
 
         if (day < 1 || day > yearMonth.lengthOfMonth()) {
             ExceptionMessage message = ExceptionMessage.INVALID_VISIT_DATE;

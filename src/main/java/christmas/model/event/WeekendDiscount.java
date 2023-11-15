@@ -6,6 +6,8 @@ import static christmas.model.event.EventConfig.WEEKEND_EVENT_MENU_TYPE;
 
 import christmas.model.Amount;
 import christmas.model.BookingInfo;
+import christmas.model.Order;
+import christmas.model.VisitDate;
 
 public class WeekendDiscount implements PlannerEvent {
 
@@ -29,10 +31,18 @@ public class WeekendDiscount implements PlannerEvent {
     }
 
     private int getMenuCountByMenuType() {
-        return bookingInfo.getOrder().getMenuTypeCount(WEEKEND_EVENT_MENU_TYPE);
+        return getOrder().getMenuTypeCount(WEEKEND_EVENT_MENU_TYPE);
     }
 
     private boolean isWeekend() {
-        return bookingInfo.getVisitDate().isWeekend();
+        return getVisitDate().isWeekend();
+    }
+
+    private VisitDate getVisitDate() {
+        return bookingInfo.getVisitDate();
+    }
+
+    private Order getOrder() {
+        return bookingInfo.getOrder();
     }
 }

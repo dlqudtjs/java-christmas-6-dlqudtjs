@@ -6,6 +6,7 @@ import static christmas.model.event.EventConfig.WEEKDAY_EVENT_MENU_TYPE;
 
 import christmas.model.Amount;
 import christmas.model.BookingInfo;
+import christmas.model.VisitDate;
 
 public class WeekdayDiscount implements PlannerEvent {
 
@@ -34,6 +35,10 @@ public class WeekdayDiscount implements PlannerEvent {
     }
 
     private boolean isWeekend() {
-        return bookingInfo.getVisitDate().isWeekend();
+        return getVisitDate().isWeekend();
+    }
+
+    private VisitDate getVisitDate() {
+        return bookingInfo.getVisitDate();
     }
 }

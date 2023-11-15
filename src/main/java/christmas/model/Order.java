@@ -1,7 +1,9 @@
 package christmas.model;
 
+import static christmas.constant.PlannerConfig.MAX_TOTAL_MENU_COUNT;
+import static christmas.constant.PlannerConfig.MIN_MENU_COUNT;
+
 import christmas.constant.ExceptionMessage;
-import christmas.constant.PlannerConfig;
 import christmas.model.enums.Menu;
 import christmas.model.enums.MenuType;
 import java.util.Collections;
@@ -62,7 +64,7 @@ public class Order {
     }
 
     private void validateTotalMenuCount(List<Integer> menuCounts) {
-        int maxMenuCount = PlannerConfig.MAX_TOTAL_MENU_COUNT.getValue();
+        int maxMenuCount = MAX_TOTAL_MENU_COUNT.getValue();
 
         if (getTotalMenuCount(menuCounts) > maxMenuCount) {
             ExceptionMessage message = ExceptionMessage.INVALID_MENU_MAX_COUNT;
@@ -80,7 +82,7 @@ public class Order {
     }
 
     private void validateMenuCount(List<Integer> menuCounts) {
-        int minMenuCount = PlannerConfig.MIN_MENU_COUNT.getValue();
+        int minMenuCount = MIN_MENU_COUNT.getValue();
 
         menuCounts.forEach(menuCount -> {
             if (menuCount < minMenuCount) {

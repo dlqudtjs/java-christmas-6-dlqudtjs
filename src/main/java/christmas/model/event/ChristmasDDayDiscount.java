@@ -8,6 +8,7 @@ import static christmas.model.event.EventConfig.START_DAY_ADJUSTMENT;
 
 import christmas.model.Amount;
 import christmas.model.BookingInfo;
+import christmas.model.VisitDate;
 
 public class ChristmasDDayDiscount implements PlannerEvent {
 
@@ -31,7 +32,11 @@ public class ChristmasDDayDiscount implements PlannerEvent {
     }
 
     private int getDay() {
-        return bookingInfo.getVisitDate().getDay();
+        return getVisitDate().getDay();
+    }
+
+    private VisitDate getVisitDate() {
+        return bookingInfo.getVisitDate();
     }
 
     private int calculateDiscountPrice() {
