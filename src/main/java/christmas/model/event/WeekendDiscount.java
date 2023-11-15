@@ -31,18 +31,18 @@ public class WeekendDiscount implements PlannerEvent {
     }
 
     private int getMenuCountByMenuType() {
-        return getOrder().getMenuTypeCount(WEEKEND_EVENT_MENU_TYPE);
+        return getOrderFromBookingInfo().getMenuTypeCount(WEEKEND_EVENT_MENU_TYPE);
     }
 
     private boolean isWeekend() {
-        return getVisitDate().isWeekend();
+        return getVisitDateFromBookingInfo().isWeekend();
     }
 
-    private VisitDate getVisitDate() {
+    private VisitDate getVisitDateFromBookingInfo() {
         return bookingInfo.getVisitDate();
     }
 
-    private Order getOrder() {
+    private Order getOrderFromBookingInfo() {
         return bookingInfo.getOrder();
     }
 }

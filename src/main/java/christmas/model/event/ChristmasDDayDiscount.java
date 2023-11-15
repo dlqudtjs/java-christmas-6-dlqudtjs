@@ -32,10 +32,10 @@ public class ChristmasDDayDiscount implements PlannerEvent {
     }
 
     private int getDay() {
-        return getVisitDate().getDay();
+        return getVisitDateFromBookingInfo().getDay();
     }
 
-    private VisitDate getVisitDate() {
+    private VisitDate getVisitDateFromBookingInfo() {
         return bookingInfo.getVisitDate();
     }
 

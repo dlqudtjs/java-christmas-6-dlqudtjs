@@ -6,6 +6,7 @@ import static christmas.model.event.EventConfig.SPECIAL_DISCOUNT_PRICE;
 
 import christmas.model.Amount;
 import christmas.model.BookingInfo;
+import christmas.model.VisitDate;
 
 public class SpecialDiscount implements PlannerEvent {
 
@@ -29,6 +30,10 @@ public class SpecialDiscount implements PlannerEvent {
     }
 
     private int getDay() {
-        return bookingInfo.getVisitDate().getDay();
+        return getVisitDateFromBookingInfo().getDay();
+    }
+
+    private VisitDate getVisitDateFromBookingInfo() {
+        return bookingInfo.getVisitDate();
     }
 }

@@ -35,10 +35,10 @@ public class WeekdayDiscount implements PlannerEvent {
     }
 
     private boolean isWeekend() {
-        return getVisitDate().isWeekend();
+        return getVisitDateFromBookingInfo().isWeekend();
     }
 
-    private VisitDate getVisitDate() {
+    private VisitDate getVisitDateFromBookingInfo() {
         return bookingInfo.getVisitDate();
     }
 }

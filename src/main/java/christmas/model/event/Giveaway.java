@@ -51,11 +51,11 @@ public class Giveaway implements PlannerEvent {
         return giveawayType.isAvailable(getTotalOrderPrice(bookingInfo).getValue());
     }
 
-    private Order getOrder(BookingInfo bookingInfo) {
+    private Order getOrderFromBookingInfo(BookingInfo bookingInfo) {
         return bookingInfo.getOrder();
     }
 
     private Amount getTotalOrderPrice(BookingInfo bookingInfo) {
-        return getOrder(bookingInfo).getTotalPrice();
+        return getOrderFromBookingInfo(bookingInfo).getTotalPrice();
     }
 }
